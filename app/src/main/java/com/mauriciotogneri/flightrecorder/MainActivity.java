@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.view.WindowManager;
 import android.widget.Chronometer;
@@ -16,14 +17,19 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.mauriciotogneri.flightrecorder.DataService.ServiceBinder;
+import com.mauriciotogneri.flightrecorder.log.FlightLog;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
 
-import java.util.Iterator;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
-public class MainActivity extends Activity implements AccelerometerListener
+public class MainActivity extends Activity implements AccelerometerListener, RotationListener
 {
-    private DataService dataService;
     private ServiceConnection serviceConnection;
+    private FlightLog flightLog;
 
     private long initialTime;
 
@@ -31,9 +37,9 @@ public class MainActivity extends Activity implements AccelerometerListener
     private final LineGraphSeries<DataPoint> seriesY = new LineGraphSeries<>();
     private final LineGraphSeries<DataPoint> seriesZ = new LineGraphSeries<>();
 
-    private TextView averageX;
-    private TextView averageY;
-    private TextView averageZ;
+    private TextView lastValueX;
+    private TextView lastValueY;
+    private TextView lastValueZ;
 
     private static final int MAX_DATA_LENGTH = 50;
 
@@ -49,9 +55,23 @@ public class MainActivity extends Activity implements AccelerometerListener
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        averageX = (TextView) findViewById(R.id.average_x);
-        averageY = (TextView) findViewById(R.id.average_y);
-        averageZ = (TextView) findViewById(R.id.average_z);
+        try
+        {
+            SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
+            File folder = new File(Environment.getExternalStorageDirectory() + "/flightrecorder", sourceDateFormat.format(System.currentTimeMillis()));
+            folder.mkdirs();
+
+            flightLog = new FlightLog(folder);
+        }
+        catch (IOException e)
+        {
+            // TODO
+            e.printStackTrace();
+        }
+
+        lastValueX = (TextView) findViewById(R.id.last_value_x);
+        lastValueY = (TextView) findViewById(R.id.last_value_y);
+        lastValueZ = (TextView) findViewById(R.id.last_value_z);
 
         configureGraph(R.id.graph_x, seriesX, Color.RED);
         configureGraph(R.id.graph_y, seriesY, Color.GREEN);
@@ -81,8 +101,8 @@ public class MainActivity extends Activity implements AccelerometerListener
         initialTime = System.currentTimeMillis();
 
         ServiceBinder binder = (ServiceBinder) service;
-        dataService = binder.getService();
-        dataService.startRecording(this);
+        DataService dataService = binder.getService();
+        dataService.startRecording(5, this, 5, this);
 
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
@@ -119,33 +139,23 @@ public class MainActivity extends Activity implements AccelerometerListener
         seriesY.appendData(new DataPoint(time, y), true, MAX_DATA_LENGTH);
         seriesZ.appendData(new DataPoint(time, z), true, MAX_DATA_LENGTH);
 
-        averageX.setText(String.valueOf(getAverage(seriesX)));
-        averageY.setText(String.valueOf(getAverage(seriesY)));
-        averageZ.setText(String.valueOf(getAverage(seriesZ)));
+        lastValueX.setText(String.valueOf(x));
+        lastValueY.setText(String.valueOf(y));
+        lastValueZ.setText(String.valueOf(y));
+
+        flightLog.onAccelerometerData(timestamp, x, y, z);
     }
 
-    private double getAverage(LineGraphSeries<DataPoint> series)
+    @Override
+    public void onRotationData(long timestamp, float x, float y, float z)
     {
-        double sum = 0;
-        int elements = 0;
-
-        for (Iterator<DataPoint> iteratorX = series.getValues(0, Integer.MAX_VALUE); iteratorX.hasNext(); )
-        {
-            DataPoint element = iteratorX.next();
-
-            sum += element.getY();
-            elements++;
-        }
-
-        return sum / elements;
+        flightLog.onRotationData(timestamp, x, y, z);
     }
 
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
-
         unbindService(serviceConnection);
-        //dataService.stopService();
     }
 }

@@ -16,7 +16,7 @@
         android:textSize="15sp"/>
 
     <TextView
-        android:id="@+id/average_x"
+        android:id="@+id/last_value_x"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -31,7 +31,7 @@
         android:layout_weight="1"/>
 
     <TextView
-        android:id="@+id/average_y"
+        android:id="@+id/last_value_y"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -46,7 +46,7 @@
         android:layout_weight="1"/>
 
     <TextView
-        android:id="@+id/average_z"
+        android:id="@+id/last_value_z"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.SensorManager;
 import android.os.Binder;
-import android.os.Environment;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.view.WindowManager;
@@ -15,28 +14,14 @@ import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.Accelerome
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-
 public class DataService extends Service implements AccelerometerListener, RotationListener
 {
     private SensorManager sensorManager;
     private AccelerometerSensor accelerometerSensor;
     private RotationSensor rotationSensor;
-
-    private CustomLock lock;
-
     private AccelerometerListener accelerometerListener;
-    private BufferedWriter bufferedWriter;
-
-    private DecimalFormat decimalFormat = new DecimalFormat("#.####");
-
-    private static final int SAMPLES_PER_SECOND = 5;
-    private static final String COLUMN_SEPARATOR = ",";
+    private RotationListener rotationListener;
+    private CustomLock lock;
 
     @Override
     public IBinder onBind(Intent intent)
@@ -53,26 +38,25 @@ public class DataService extends Service implements AccelerometerListener, Rotat
         accelerometerSensor = new AccelerometerSensor(sensorManager, this);
         rotationSensor = new RotationSensor(sensorManager, this, (WindowManager) getSystemService(Context.WINDOW_SERVICE));
 
-        PowerManager powerManager = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-        lock = new CustomLock(powerManager);
+        lock = new CustomLock((PowerManager) this.getSystemService(Context.POWER_SERVICE));
         lock.acquire();
     }
 
-    public void startRecording(AccelerometerListener accelerometerListener)
+    public void startRecording(int accelerometerSampleRate,
+                               AccelerometerListener accelerometerListener,
+                               int rotationSampleRate,
+                               RotationListener rotationListener)
     {
         this.accelerometerListener = accelerometerListener;
+        this.rotationListener = rotationListener;
 
-        setupFile();
-
-        sensorManager.registerListener(accelerometerSensor, accelerometerSensor.sensor(), (1000 / SAMPLES_PER_SECOND) * 1000);
-        sensorManager.registerListener(rotationSensor, rotationSensor.sensor(), (1000 / SAMPLES_PER_SECOND) * 1000);
+        sensorManager.registerListener(accelerometerSensor, accelerometerSensor.sensor(), (1000 / accelerometerSampleRate) * 1000);
+        sensorManager.registerListener(rotationSensor, rotationSensor.sensor(), (1000 / rotationSampleRate) * 1000);
     }
 
     @Override
     public void onAccelerometerData(long timestamp, float x, float y, float z)
     {
-        writeLine(timestamp + COLUMN_SEPARATOR + decimalFormat.format(x) + COLUMN_SEPARATOR + decimalFormat.format(y) + COLUMN_SEPARATOR + decimalFormat.format(z));
-
         if (accelerometerListener != null)
         {
             accelerometerListener.onAccelerometerData(timestamp, x, y, z);
@@ -82,40 +66,9 @@ public class DataService extends Service implements AccelerometerListener, Rotat
     @Override
     public void onRotationData(long timestamp, float x, float y, float z)
     {
-
-    }
-
-    private void setupFile()
-    {
-        try
+        if (rotationListener != null)
         {
-            SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-            File file = new File(Environment.getExternalStorageDirectory() + "/" + sourceDateFormat.format(System.currentTimeMillis()) + ".csv");
-
-            if (file.createNewFile())
-            {
-                bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-                writeLine("TIME" + COLUMN_SEPARATOR + "X" + COLUMN_SEPARATOR + "Y" + COLUMN_SEPARATOR + "Z");
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    private void writeLine(String text)
-    {
-        if (bufferedWriter != null)
-        {
-            try
-            {
-                bufferedWriter.write(text + "\n");
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            rotationListener.onRotationData(timestamp, x, y, z);
         }
     }
 
@@ -126,15 +79,6 @@ public class DataService extends Service implements AccelerometerListener, Rotat
         rotationSensor.stop();
 
         lock.release();
-
-        try
-        {
-            bufferedWriter.close();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
 
         super.onDestroy();
     }
