@@ -30,9 +30,9 @@ public class AccelerometerFragment extends BaseFragment implements Accelerometer
     {
         initialTime = System.currentTimeMillis();
 
-        lastValueX = (TextView) getView().findViewById(R.id.last_accelerometer_x);
-        lastValueY = (TextView) getView().findViewById(R.id.last_accelerometer_y);
-        lastValueZ = (TextView) getView().findViewById(R.id.last_accelerometer_z);
+        lastValueX = (TextView) findViewById(R.id.last_accelerometer_x);
+        lastValueY = (TextView) findViewById(R.id.last_accelerometer_y);
+        lastValueZ = (TextView) findViewById(R.id.last_accelerometer_z);
 
         configureGraph(R.id.graph_accelerometer_x, seriesX, Color.RED);
         configureGraph(R.id.graph_accelerometer_y, seriesY, Color.argb(255, 30, 190, 50));
@@ -47,7 +47,7 @@ public class AccelerometerFragment extends BaseFragment implements Accelerometer
 
     private void configureGraph(int id, LineGraphSeries<DataPoint> series, int color)
     {
-        GraphView graph = (GraphView) getView().findViewById(id);
+        GraphView graph = (GraphView) findViewById(id);
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(-AXIS_Y_RESOLUTION);
         graph.getViewport().setMaxY(AXIS_Y_RESOLUTION);

@@ -17,12 +17,12 @@ public class LocationFragment extends BaseFragment implements LocationListener
     @Override
     public void initialize()
     {
-        lastValueLatitude = (TextView) getView().findViewById(R.id.last_location_latitude);
-        lastValueLongitude = (TextView) getView().findViewById(R.id.last_location_longitude);
-        lastValueAltitude = (TextView) getView().findViewById(R.id.last_location_altitude);
-        lastValueAccuracy = (TextView) getView().findViewById(R.id.last_location_accuracy);
-        lastValueSpeed = (TextView) getView().findViewById(R.id.last_location_speed);
-        lastValueBearing = (TextView) getView().findViewById(R.id.last_location_bearing);
+        lastValueLatitude = (TextView) findViewById(R.id.last_location_latitude);
+        lastValueLongitude = (TextView) findViewById(R.id.last_location_longitude);
+        lastValueAltitude = (TextView) findViewById(R.id.last_location_altitude);
+        lastValueAccuracy = (TextView) findViewById(R.id.last_location_accuracy);
+        lastValueSpeed = (TextView) findViewById(R.id.last_location_speed);
+        lastValueBearing = (TextView) findViewById(R.id.last_location_bearing);
     }
 
     @Override

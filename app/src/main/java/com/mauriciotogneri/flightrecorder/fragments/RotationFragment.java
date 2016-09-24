@@ -14,9 +14,9 @@ public class RotationFragment extends BaseFragment implements RotationListener
     @Override
     public void initialize()
     {
-        lastValueX = (TextView) getView().findViewById(R.id.last_rotation_x);
-        lastValueY = (TextView) getView().findViewById(R.id.last_rotation_y);
-        lastValueZ = (TextView) getView().findViewById(R.id.last_rotation_z);
+        lastValueX = (TextView) findViewById(R.id.last_rotation_x);
+        lastValueY = (TextView) findViewById(R.id.last_rotation_y);
+        lastValueZ = (TextView) findViewById(R.id.last_rotation_z);
     }
 
     @Override

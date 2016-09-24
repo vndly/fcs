@@ -22,6 +22,12 @@ public abstract class BaseFragment extends Fragment
         initialize();
     }
 
+    @SuppressWarnings("ConstantConditions")
+    protected View findViewById(int id)
+    {
+        return getView().findViewById(id);
+    }
+
     public abstract void initialize();
 
     public abstract int layout();

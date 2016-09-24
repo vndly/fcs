@@ -3,6 +3,8 @@
 
     <string name="app_name">Flight Recorder</string>
 
+    <string name="screen.main.time">TIME:</string>
+
     <string name="screen.accelerometer">Accelerometer</string>
 
     <string name="screen.rotation">Rotation</string>

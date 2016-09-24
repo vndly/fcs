@@ -16,7 +16,7 @@ import com.google.android.gms.location.LocationServices;
 
 public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener
 {
-    private GoogleApiClient googleApiClient;
+    private final GoogleApiClient googleApiClient;
     private final LocationListener listener;
 
     private boolean requestLocationUpdates = false;
@@ -26,13 +26,13 @@ public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedLi
     {
         this.listener = listener;
 
-        googleApiClient = new GoogleApiClient.Builder(context)
+        this.googleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
-        googleApiClient.connect();
+        this.googleApiClient.connect();
     }
 
     public void requestLocationUpdates(int locationSampleRate)
