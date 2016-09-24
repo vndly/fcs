@@ -25,7 +25,6 @@ public class CustomLock
         }
         catch (Exception e)
         {
-            // TODO
             e.printStackTrace();
         }
     }

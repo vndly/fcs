@@ -36,9 +36,9 @@ public class LocationFragment extends BaseFragment implements LocationListener
     {
         lastValueLatitude.setText(String.valueOf(latitude));
         lastValueLongitude.setText(String.valueOf(longitude));
-        lastValueAltitude.setText(String.valueOf(altitude));
-        lastValueAccuracy.setText(String.valueOf(accuracy));
-        lastValueSpeed.setText(String.valueOf(speed));
-        lastValueBearing.setText(String.valueOf(bearing));
+        lastValueAltitude.setText(String.format("%s m", altitude));
+        lastValueAccuracy.setText(String.format("%s m", accuracy));
+        lastValueSpeed.setText(String.format("%s m/s", speed));
+        lastValueBearing.setText(String.format("%sº", bearing));
     }
 }

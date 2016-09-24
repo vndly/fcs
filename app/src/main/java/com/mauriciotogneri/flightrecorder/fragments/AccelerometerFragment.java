@@ -21,8 +21,8 @@ public class AccelerometerFragment extends BaseFragment implements Accelerometer
     private TextView lastValueY;
     private TextView lastValueZ;
 
-    private static final int MAX_DATA_LENGTH = 50;
-    private static final int AXIS_X_RESOLUTION = 2000;
+    private static final int MAX_DATA_LENGTH = 200;
+    private static final int AXIS_X_RESOLUTION = 1000;
     private static final int AXIS_Y_RESOLUTION = 5;
 
     @Override

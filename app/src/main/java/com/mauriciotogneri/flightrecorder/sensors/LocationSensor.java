@@ -41,7 +41,6 @@ public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedLi
         {
             LocationRequest locationRequest = new LocationRequest();
             locationRequest.setInterval(locationSampleRate);
-            locationRequest.setFastestInterval(locationSampleRate);
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);

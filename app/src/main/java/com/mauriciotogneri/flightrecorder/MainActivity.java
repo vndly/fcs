@@ -55,14 +55,19 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
         {
             SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
             File folder = new File(Environment.getExternalStorageDirectory() + "/flightrecorder", sourceDateFormat.format(System.currentTimeMillis()));
-            folder.mkdirs();
 
-            flightLog = new FlightLog(folder);
+            if (folder.exists() || folder.mkdirs())
+            {
+                flightLog = new FlightLog(folder);
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
         }
         catch (IOException e)
         {
-            // TODO
-            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 
@@ -83,7 +88,7 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
         fragments[2] = locationFragment;
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), names, fragments));
+        viewPager.setAdapter(new PagerAdapter(this, getSupportFragmentManager(), names, fragments));
         viewPager.setOffscreenPageLimit(3);
         viewPager.setCurrentItem(0);
     }
@@ -113,7 +118,7 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
     {
         ServiceBinder binder = (ServiceBinder) service;
         DataService dataService = binder.getService();
-        dataService.startRecording(5, this, 5, this, 1000, this);
+        dataService.startRecording(5, this, 5, this, 500, this);
 
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
