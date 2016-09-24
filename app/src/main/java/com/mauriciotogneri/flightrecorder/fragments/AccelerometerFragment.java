@@ -27,9 +27,8 @@ public class AccelerometerFragment extends Fragment implements AccelerometerList
     private TextView lastValueZ;
 
     private static final int MAX_DATA_LENGTH = 50;
-
-    private static final float AXIS_X_RESOLUTION = 2000;
-    private static final float AXIS_Y_RESOLUTION = 3;
+    private static final int AXIS_X_RESOLUTION = 2000;
+    private static final int AXIS_Y_RESOLUTION = 5;
 
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -49,7 +48,7 @@ public class AccelerometerFragment extends Fragment implements AccelerometerList
         lastValueZ = (TextView) getView().findViewById(R.id.last_accelerometer_z);
 
         configureGraph(R.id.graph_accelerometer_x, seriesX, Color.RED);
-        configureGraph(R.id.graph_accelerometer_y, seriesY, Color.GREEN);
+        configureGraph(R.id.graph_accelerometer_y, seriesY, Color.argb(255, 30, 190, 50));
         configureGraph(R.id.graph_accelerometer_z, seriesZ, Color.BLUE);
     }
 
@@ -63,6 +62,8 @@ public class AccelerometerFragment extends Fragment implements AccelerometerList
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(-AXIS_X_RESOLUTION);
         graph.getViewport().setMaxX(AXIS_X_RESOLUTION);
+
+        graph.getGridLabelRenderer().setGridColor(Color.argb(255, 200, 200, 200));
 
         graph.addSeries(series);
 
