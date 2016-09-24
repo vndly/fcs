@@ -6,4 +6,9 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="textview">
+        <item name="android:textColor">#666666</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
 </resources>

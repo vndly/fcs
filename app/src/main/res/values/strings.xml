@@ -4,7 +4,18 @@
     <string name="app_name">Flight Recorder</string>
 
     <string name="screen.accelerometer">Accelerometer</string>
+
     <string name="screen.rotation">Rotation</string>
+    <string name="screen.rotation.x">X:</string>
+    <string name="screen.rotation.y">Y:</string>
+    <string name="screen.rotation.z">Z:</string>
+
     <string name="screen.location">Location</string>
+    <string name="screen.location.latitude">Latitude:</string>
+    <string name="screen.location.longitude">Longitude:</string>
+    <string name="screen.location.altitude">Altitude:</string>
+    <string name="screen.location.accuracy">Accuracy:</string>
+    <string name="screen.location.speed">Speed:</string>
+    <string name="screen.location.bearing">Bearing:</string>
 
 </resources>

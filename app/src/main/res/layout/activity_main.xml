@@ -14,18 +14,16 @@
         android:paddingTop="10dp">
 
         <TextView
+            style="@style/textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TIME:  "
-            android:textColor="#666666"
-            android:textSize="16sp"/>
+            android:text="TIME:  "/>
 
         <Chronometer
             android:id="@+id/chronometer"
+            style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#666666"
-            android:textSize="16sp"/>
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -39,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:background="@android:color/white"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:textColor="#666666"/>
 
     </android.support.v4.view.ViewPager>

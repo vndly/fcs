@@ -1,11 +1,6 @@
 package com.mauriciotogneri.flightrecorder.fragments;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -14,7 +9,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.mauriciotogneri.flightrecorder.R;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
 
-public class AccelerometerFragment extends Fragment implements AccelerometerListener
+public class AccelerometerFragment extends BaseFragment implements AccelerometerListener
 {
     private long initialTime;
 
@@ -31,16 +26,8 @@ public class AccelerometerFragment extends Fragment implements AccelerometerList
     private static final int AXIS_Y_RESOLUTION = 5;
 
     @Override
-    public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public void initialize()
     {
-        return inflater.inflate(R.layout.screen_accelerometer, container, false);
-    }
-
-    @Override
-    public final void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-
         initialTime = System.currentTimeMillis();
 
         lastValueX = (TextView) getView().findViewById(R.id.last_accelerometer_x);
@@ -50,6 +37,12 @@ public class AccelerometerFragment extends Fragment implements AccelerometerList
         configureGraph(R.id.graph_accelerometer_x, seriesX, Color.RED);
         configureGraph(R.id.graph_accelerometer_y, seriesY, Color.argb(255, 30, 190, 50));
         configureGraph(R.id.graph_accelerometer_z, seriesZ, Color.BLUE);
+    }
+
+    @Override
+    public int layout()
+    {
+        return R.layout.screen_accelerometer;
     }
 
     private void configureGraph(int id, LineGraphSeries<DataPoint> series, int color)

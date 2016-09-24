@@ -7,7 +7,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
@@ -15,10 +14,12 @@ import android.widget.Chronometer;
 
 import com.mauriciotogneri.flightrecorder.DataService.ServiceBinder;
 import com.mauriciotogneri.flightrecorder.fragments.AccelerometerFragment;
+import com.mauriciotogneri.flightrecorder.fragments.BaseFragment;
 import com.mauriciotogneri.flightrecorder.fragments.LocationFragment;
 import com.mauriciotogneri.flightrecorder.fragments.RotationFragment;
 import com.mauriciotogneri.flightrecorder.log.FlightLog;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
 
 import java.io.File;
@@ -26,7 +27,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class MainActivity extends FragmentActivity implements AccelerometerListener, RotationListener
+public class MainActivity extends FragmentActivity implements AccelerometerListener, RotationListener, LocationListener
 {
     private ServiceConnection serviceConnection;
     private FlightLog flightLog;
@@ -76,7 +77,7 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
         names[1] = getString(R.string.screen_rotation);
         names[2] = getString(R.string.screen_location);
 
-        Fragment[] fragments = new Fragment[3];
+        BaseFragment[] fragments = new BaseFragment[3];
         fragments[0] = accelerometerFragment;
         fragments[1] = rotationFragment;
         fragments[2] = locationFragment;
@@ -112,7 +113,7 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
     {
         ServiceBinder binder = (ServiceBinder) service;
         DataService dataService = binder.getService();
-        dataService.startRecording(5, this, 5, this);
+        dataService.startRecording(5, this, 5, this, 1000, this);
 
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
@@ -135,6 +136,13 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
     {
         rotationFragment.onRotationData(timestamp, x, y, z);
         flightLog.onRotationData(timestamp, x, y, z);
+    }
+
+    @Override
+    public void onLocationData(long timestamp, double latitude, double longitude, double altitude, float accuracy, float speed, float bearing)
+    {
+        locationFragment.onLocationData(timestamp, latitude, longitude, altitude, accuracy, speed, bearing);
+        flightLog.onLocationData(timestamp, latitude, longitude, altitude, accuracy, speed, bearing);
     }
 
     @Override

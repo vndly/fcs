@@ -8,12 +8,11 @@
 
     <TextView
         android:id="@+id/last.accelerometer.x"
+        style="@style/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="5dp"
-        android:textColor="#666666"
-        android:textSize="15sp"/>
+        android:padding="5dp"/>
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph.accelerometer.x"
@@ -23,12 +22,11 @@
 
     <TextView
         android:id="@+id/last.accelerometer.y"
+        style="@style/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="5dp"
-        android:textColor="#666666"
-        android:textSize="15sp"/>
+        android:padding="5dp"/>
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph.accelerometer.y"
@@ -38,12 +36,11 @@
 
     <TextView
         android:id="@+id/last.accelerometer.z"
+        style="@style/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="5dp"
-        android:textColor="#666666"
-        android:textSize="15sp"/>
+        android:padding="5dp"/>
 
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph.accelerometer.z"

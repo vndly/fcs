@@ -1,18 +1,44 @@
 package com.mauriciotogneri.flightrecorder.fragments;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mauriciotogneri.flightrecorder.R;
+import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
 
-public class LocationFragment extends Fragment
+public class LocationFragment extends BaseFragment implements LocationListener
 {
+    private TextView lastValueLatitude;
+    private TextView lastValueLongitude;
+    private TextView lastValueAltitude;
+    private TextView lastValueAccuracy;
+    private TextView lastValueSpeed;
+    private TextView lastValueBearing;
+
     @Override
-    public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public void initialize()
     {
-        return inflater.inflate(R.layout.screen_location, container, false);
+        lastValueLatitude = (TextView) getView().findViewById(R.id.last_location_latitude);
+        lastValueLongitude = (TextView) getView().findViewById(R.id.last_location_longitude);
+        lastValueAltitude = (TextView) getView().findViewById(R.id.last_location_altitude);
+        lastValueAccuracy = (TextView) getView().findViewById(R.id.last_location_accuracy);
+        lastValueSpeed = (TextView) getView().findViewById(R.id.last_location_speed);
+        lastValueBearing = (TextView) getView().findViewById(R.id.last_location_bearing);
+    }
+
+    @Override
+    public int layout()
+    {
+        return R.layout.screen_location;
+    }
+
+    @Override
+    public void onLocationData(long timestamp, double latitude, double longitude, double altitude, float accuracy, float speed, float bearing)
+    {
+        lastValueLatitude.setText(String.valueOf(latitude));
+        lastValueLongitude.setText(String.valueOf(longitude));
+        lastValueAltitude.setText(String.valueOf(altitude));
+        lastValueAccuracy.setText(String.valueOf(accuracy));
+        lastValueSpeed.setText(String.valueOf(speed));
+        lastValueBearing.setText(String.valueOf(bearing));
     }
 }

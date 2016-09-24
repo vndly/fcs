@@ -11,16 +11,20 @@ import android.view.WindowManager;
 
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.flightrecorder.sensors.LocationSensor;
+import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
 
-public class DataService extends Service implements AccelerometerListener, RotationListener
+public class DataService extends Service implements AccelerometerListener, RotationListener, LocationListener
 {
     private SensorManager sensorManager;
     private AccelerometerSensor accelerometerSensor;
     private RotationSensor rotationSensor;
+    private LocationSensor locationSensor;
     private AccelerometerListener accelerometerListener;
     private RotationListener rotationListener;
+    private LocationListener locationListener;
     private CustomLock lock;
 
     @Override
@@ -37,6 +41,7 @@ public class DataService extends Service implements AccelerometerListener, Rotat
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = new AccelerometerSensor(sensorManager, this);
         rotationSensor = new RotationSensor(sensorManager, this, (WindowManager) getSystemService(Context.WINDOW_SERVICE));
+        locationSensor = new LocationSensor(this, this);
 
         lock = new CustomLock((PowerManager) this.getSystemService(Context.POWER_SERVICE));
         lock.acquire();
@@ -45,13 +50,17 @@ public class DataService extends Service implements AccelerometerListener, Rotat
     public void startRecording(int accelerometerSampleRate,
                                AccelerometerListener accelerometerListener,
                                int rotationSampleRate,
-                               RotationListener rotationListener)
+                               RotationListener rotationListener,
+                               int locationSampleRate,
+                               LocationListener locationListener)
     {
         this.accelerometerListener = accelerometerListener;
         this.rotationListener = rotationListener;
+        this.locationListener = locationListener;
 
         sensorManager.registerListener(accelerometerSensor, accelerometerSensor.sensor(), (1000 / accelerometerSampleRate) * 1000);
         sensorManager.registerListener(rotationSensor, rotationSensor.sensor(), (1000 / rotationSampleRate) * 1000);
+        locationSensor.requestLocationUpdates(locationSampleRate);
     }
 
     @Override
@@ -73,10 +82,20 @@ public class DataService extends Service implements AccelerometerListener, Rotat
     }
 
     @Override
+    public void onLocationData(long timestamp, double latitude, double longitude, double altitude, float accuracy, float speed, float bearing)
+    {
+        if (locationListener != null)
+        {
+            locationListener.onLocationData(timestamp, latitude, longitude, altitude, accuracy, speed, bearing);
+        }
+    }
+
+    @Override
     public void onDestroy()
     {
         accelerometerSensor.stop();
         rotationSensor.stop();
+        locationSensor.stop();
 
         lock.release();
 

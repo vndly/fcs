@@ -1,35 +1,28 @@
 package com.mauriciotogneri.flightrecorder.fragments;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mauriciotogneri.flightrecorder.R;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
 
-public class RotationFragment extends Fragment implements RotationListener
+public class RotationFragment extends BaseFragment implements RotationListener
 {
     private TextView lastValueX;
     private TextView lastValueY;
     private TextView lastValueZ;
 
     @Override
-    public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public void initialize()
     {
-        return inflater.inflate(R.layout.screen_rotation, container, false);
-    }
-
-    @Override
-    public final void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-
         lastValueX = (TextView) getView().findViewById(R.id.last_rotation_x);
         lastValueY = (TextView) getView().findViewById(R.id.last_rotation_y);
         lastValueZ = (TextView) getView().findViewById(R.id.last_rotation_z);
+    }
+
+    @Override
+    public int layout()
+    {
+        return R.layout.screen_rotation;
     }
 
     @Override

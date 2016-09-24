@@ -79,13 +79,13 @@ public class RotationSensor implements SensorEventListener
     {
     }
 
-    public interface RotationListener
-    {
-        void onRotationData(long timestamp, float x, float y, float z);
-    }
-
     public void stop()
     {
         sensorManager.unregisterListener(this);
+    }
+
+    public interface RotationListener
+    {
+        void onRotationData(long timestamp, float x, float y, float z);
     }
 }
