@@ -7,7 +7,11 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.mauriciotogneri.flightrecorder.R;
+import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
+
+import static android.R.attr.x;
+import static android.R.attr.y;
 
 public class AccelerometerFragment extends BaseFragment implements AccelerometerListener
 {
@@ -65,13 +69,13 @@ public class AccelerometerFragment extends BaseFragment implements Accelerometer
     }
 
     @Override
-    public void onAccelerometerData(long timestamp, float x, float y, float z)
+    public void onAccelerometerData(AccelerometerData data)
     {
-        long time = timestamp - initialTime;
+        long time = data.timestamp() - initialTime;
 
-        seriesX.appendData(new DataPoint(time, x), true, MAX_DATA_LENGTH);
-        seriesY.appendData(new DataPoint(time, y), true, MAX_DATA_LENGTH);
-        seriesZ.appendData(new DataPoint(time, z), true, MAX_DATA_LENGTH);
+        seriesX.appendData(new DataPoint(time, data.x()), true, MAX_DATA_LENGTH);
+        seriesY.appendData(new DataPoint(time, data.y()), true, MAX_DATA_LENGTH);
+        seriesZ.appendData(new DataPoint(time, data.z()), true, MAX_DATA_LENGTH);
 
         lastValueX.setText(String.valueOf(x));
         lastValueY.setText(String.valueOf(y));

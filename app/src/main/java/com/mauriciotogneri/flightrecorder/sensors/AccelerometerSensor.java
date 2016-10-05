@@ -5,6 +5,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
+
 public class AccelerometerSensor implements SensorEventListener
 {
     private final SensorManager sensorManager;
@@ -26,7 +28,11 @@ public class AccelerometerSensor implements SensorEventListener
     @Override
     public void onSensorChanged(SensorEvent event)
     {
-        listener.onAccelerometerData(System.currentTimeMillis(), event.values[0], event.values[1], event.values[2]);
+        listener.onAccelerometerData(new AccelerometerData(
+                System.currentTimeMillis(),
+                event.values[0],
+                event.values[1],
+                event.values[2]));
     }
 
     @Override
@@ -41,6 +47,6 @@ public class AccelerometerSensor implements SensorEventListener
 
     public interface AccelerometerListener
     {
-        void onAccelerometerData(long timestamp, float x, float y, float z);
+        void onAccelerometerData(AccelerometerData data);
     }
 }

@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.mauriciotogneri.flightrecorder.database.LocationData;
 
 public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener
 {
@@ -74,14 +75,15 @@ public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedLi
     @Override
     public void onLocationChanged(Location location)
     {
-        listener.onLocationData(
+        listener.onLocationData(new LocationData(
                 System.currentTimeMillis(),
                 location.getLatitude(),
                 location.getLongitude(),
                 location.getAltitude(),
                 location.getAccuracy(),
                 location.getSpeed(),
-                location.getBearing());
+                location.getBearing()
+        ));
     }
 
     public void stop()
@@ -91,6 +93,6 @@ public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedLi
 
     public interface LocationListener
     {
-        void onLocationData(long timestamp, double latitude, double longitude, double altitude, float accuracy, float speed, float bearing);
+        void onLocationData(LocationData data);
     }
 }

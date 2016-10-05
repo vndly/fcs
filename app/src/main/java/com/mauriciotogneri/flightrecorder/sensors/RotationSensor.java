@@ -7,6 +7,8 @@ import android.hardware.SensorManager;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import com.mauriciotogneri.flightrecorder.database.RotationData;
+
 public class RotationSensor implements SensorEventListener
 {
     private final SensorManager sensorManager;
@@ -71,7 +73,13 @@ public class RotationSensor implements SensorEventListener
         orientation[1] = (float) Math.toDegrees(orientation[1]);
         orientation[2] = (float) Math.toDegrees(orientation[2]);
 
-        listener.onRotationData(System.currentTimeMillis(), orientation[0], orientation[1], orientation[2]);
+        //listener.onRotationData(System.currentTimeMillis(), orientation[0], orientation[1], orientation[2]);
+
+        float round1 = ((float) Math.round(event.values[0] * 1000.0f)) / 1000.0f;
+        float round2 = ((float) Math.round(event.values[1] * 1000.0f)) / 1000.0f;
+        float round3 = ((float) Math.round(event.values[2] * 1000.0f)) / 1000.0f;
+
+        listener.onRotationData(new RotationData(System.currentTimeMillis(), round1, round2, round3));
     }
 
     @Override
@@ -86,6 +94,6 @@ public class RotationSensor implements SensorEventListener
 
     public interface RotationListener
     {
-        void onRotationData(long timestamp, float x, float y, float z);
+        void onRotationData(RotationData data);
     }
 }

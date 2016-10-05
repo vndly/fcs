@@ -1,20 +1,20 @@
 package com.mauriciotogneri.flightrecorder.log;
 
+import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
+import com.mauriciotogneri.flightrecorder.database.LocationData;
+import com.mauriciotogneri.flightrecorder.database.RotationData;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
 import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 public class FlightLog implements AccelerometerListener, RotationListener, LocationListener
 {
     private final SensorLog accelerometerLog;
     private final SensorLog rotationLog;
     private final SensorLog locationLog;
-
-    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.####");
 
     public FlightLog(File parent) throws IOException
     {
@@ -24,28 +24,29 @@ public class FlightLog implements AccelerometerListener, RotationListener, Locat
     }
 
     @Override
-    public void onAccelerometerData(long timestamp, float x, float y, float z)
+    public void onAccelerometerData(AccelerometerData data)
     {
-        accelerometerLog.log(timestamp, DECIMAL_FORMAT.format(x), DECIMAL_FORMAT.format(y), DECIMAL_FORMAT.format(z));
+        accelerometerLog.log(data.timestamp(), data.x(), data.y(), data.z());
     }
 
     @Override
-    public void onRotationData(long timestamp, float x, float y, float z)
+    public void onRotationData(RotationData data)
     {
-        rotationLog.log(timestamp, DECIMAL_FORMAT.format(x), DECIMAL_FORMAT.format(y), DECIMAL_FORMAT.format(z));
+        rotationLog.log(data.timestamp(), data.x(), data.y(), data.z());
     }
 
     @Override
-    public void onLocationData(long timestamp, double latitude, double longitude, double altitude, float accuracy, float speed, float bearing)
+    public void onLocationData(LocationData data)
     {
         locationLog.log(
-                timestamp,
-                DECIMAL_FORMAT.format(latitude),
-                DECIMAL_FORMAT.format(longitude),
-                DECIMAL_FORMAT.format(altitude),
-                DECIMAL_FORMAT.format(accuracy),
-                DECIMAL_FORMAT.format(speed),
-                DECIMAL_FORMAT.format(bearing));
+                data.timestamp(),
+                data.latitude(),
+                data.longitude(),
+                data.altitude(),
+                data.accuracy(),
+                data.speed(),
+                data.bearing()
+        );
     }
 
     public void close()

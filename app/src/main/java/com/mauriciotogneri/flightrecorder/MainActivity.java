@@ -13,6 +13,10 @@ import android.view.WindowManager;
 import android.widget.Chronometer;
 
 import com.mauriciotogneri.flightrecorder.DataService.ServiceBinder;
+import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
+import com.mauriciotogneri.flightrecorder.database.Database;
+import com.mauriciotogneri.flightrecorder.database.LocationData;
+import com.mauriciotogneri.flightrecorder.database.RotationData;
 import com.mauriciotogneri.flightrecorder.fragments.AccelerometerFragment;
 import com.mauriciotogneri.flightrecorder.fragments.BaseFragment;
 import com.mauriciotogneri.flightrecorder.fragments.LocationFragment;
@@ -34,6 +38,7 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
     private AccelerometerFragment accelerometerFragment;
     private RotationFragment rotationFragment;
     private LocationFragment locationFragment;
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,6 +52,8 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
         setupLog();
         setupFragments();
         setupService();
+
+        this.database = new Database();
     }
 
     private void setupLog()
@@ -130,24 +137,27 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
     }
 
     @Override
-    public void onAccelerometerData(long timestamp, float x, float y, float z)
+    public void onAccelerometerData(AccelerometerData data)
     {
-        accelerometerFragment.onAccelerometerData(timestamp, x, y, z);
-        flightLog.onAccelerometerData(timestamp, x, y, z);
+        accelerometerFragment.onAccelerometerData(data);
+        flightLog.onAccelerometerData(data);
+        database.onAccelerometerData(data);
     }
 
     @Override
-    public void onRotationData(long timestamp, float x, float y, float z)
+    public void onRotationData(RotationData data)
     {
-        rotationFragment.onRotationData(timestamp, x, y, z);
-        flightLog.onRotationData(timestamp, x, y, z);
+        rotationFragment.onRotationData(data);
+        flightLog.onRotationData(data);
+        database.onRotationData(data);
     }
 
     @Override
-    public void onLocationData(long timestamp, double latitude, double longitude, double altitude, float accuracy, float speed, float bearing)
+    public void onLocationData(LocationData data)
     {
-        locationFragment.onLocationData(timestamp, latitude, longitude, altitude, accuracy, speed, bearing);
-        flightLog.onLocationData(timestamp, latitude, longitude, altitude, accuracy, speed, bearing);
+        locationFragment.onLocationData(data);
+        flightLog.onLocationData(data);
+        database.onLocationData(data);
     }
 
     @Override

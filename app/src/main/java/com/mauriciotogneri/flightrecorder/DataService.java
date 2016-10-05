@@ -9,6 +9,9 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.view.WindowManager;
 
+import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
+import com.mauriciotogneri.flightrecorder.database.LocationData;
+import com.mauriciotogneri.flightrecorder.database.RotationData;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
 import com.mauriciotogneri.flightrecorder.sensors.LocationSensor;
@@ -64,29 +67,29 @@ public class DataService extends Service implements AccelerometerListener, Rotat
     }
 
     @Override
-    public void onAccelerometerData(long timestamp, float x, float y, float z)
+    public void onAccelerometerData(AccelerometerData data)
     {
         if (accelerometerListener != null)
         {
-            accelerometerListener.onAccelerometerData(timestamp, x, y, z);
+            accelerometerListener.onAccelerometerData(data);
         }
     }
 
     @Override
-    public void onRotationData(long timestamp, float x, float y, float z)
+    public void onRotationData(RotationData data)
     {
         if (rotationListener != null)
         {
-            rotationListener.onRotationData(timestamp, x, y, z);
+            rotationListener.onRotationData(data);
         }
     }
 
     @Override
-    public void onLocationData(long timestamp, double latitude, double longitude, double altitude, float accuracy, float speed, float bearing)
+    public void onLocationData(LocationData data)
     {
         if (locationListener != null)
         {
-            locationListener.onLocationData(timestamp, latitude, longitude, altitude, accuracy, speed, bearing);
+            locationListener.onLocationData(data);
         }
     }
 

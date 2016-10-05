@@ -3,6 +3,7 @@ package com.mauriciotogneri.flightrecorder.fragments;
 import android.widget.TextView;
 
 import com.mauriciotogneri.flightrecorder.R;
+import com.mauriciotogneri.flightrecorder.database.RotationData;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
 
 public class RotationFragment extends BaseFragment implements RotationListener
@@ -26,10 +27,10 @@ public class RotationFragment extends BaseFragment implements RotationListener
     }
 
     @Override
-    public void onRotationData(long timestamp, float x, float y, float z)
+    public void onRotationData(RotationData data)
     {
-        lastValueX.setText(String.valueOf(x));
-        lastValueY.setText(String.valueOf(y));
-        lastValueZ.setText(String.valueOf(z));
+        lastValueX.setText(String.valueOf(data.x()));
+        lastValueY.setText(String.valueOf(data.y()));
+        lastValueZ.setText(String.valueOf(data.z()));
     }
 }

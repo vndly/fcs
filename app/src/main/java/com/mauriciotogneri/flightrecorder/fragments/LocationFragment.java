@@ -3,6 +3,7 @@ package com.mauriciotogneri.flightrecorder.fragments;
 import android.widget.TextView;
 
 import com.mauriciotogneri.flightrecorder.R;
+import com.mauriciotogneri.flightrecorder.database.LocationData;
 import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
 
 public class LocationFragment extends BaseFragment implements LocationListener
@@ -32,13 +33,13 @@ public class LocationFragment extends BaseFragment implements LocationListener
     }
 
     @Override
-    public void onLocationData(long timestamp, double latitude, double longitude, double altitude, float accuracy, float speed, float bearing)
+    public void onLocationData(LocationData data)
     {
-        lastValueLatitude.setText(String.valueOf(latitude));
-        lastValueLongitude.setText(String.valueOf(longitude));
-        lastValueAltitude.setText(String.format("%s m", altitude));
-        lastValueAccuracy.setText(String.format("%s m", accuracy));
-        lastValueSpeed.setText(String.format("%s m/s", speed));
-        lastValueBearing.setText(String.format("%sº", bearing));
+        lastValueLatitude.setText(String.valueOf(data.latitude()));
+        lastValueLongitude.setText(String.valueOf(data.longitude()));
+        lastValueAltitude.setText(String.format("%s m", data.altitude()));
+        lastValueAccuracy.setText(String.format("%s m", data.accuracy()));
+        lastValueSpeed.setText(String.format("%s m/s", data.speed()));
+        lastValueBearing.setText(String.format("%sº", data.bearing()));
     }
 }

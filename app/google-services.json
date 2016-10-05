@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "314957098040",
+    "firebase_url": "https://flightrecorder-2edf9.firebaseio.com",
+    "project_id": "flightrecorder-2edf9",
+    "storage_bucket": "flightrecorder-2edf9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314957098040:android:fd9c877927bf212b",
+        "android_client_info": {
+          "package_name": "com.mauriciotogneri.flightrecorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314957098040-jek9ekvsrmv61s36ietbeh2s9nke51ut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mauriciotogneri.flightrecorder",
+            "certificate_hash": "808DCD3D2690FF6F4D7BF006A9693003DB48BC66"
+          }
+        },
+        {
+          "client_id": "314957098040-jod5m4baub67d9bdatrvmlsd6f591kiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF7YicKNiD_Uc7-li5XxTL040IAWLGLl4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314957098040-jod5m4baub67d9bdatrvmlsd6f591kiq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
