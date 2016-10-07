@@ -5,10 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
 import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
+import com.mauriciotogneri.flightrecorder.util.DateUtil;
 
 public class Database implements AccelerometerListener, RotationListener, LocationListener
 {
@@ -18,12 +15,16 @@ public class Database implements AccelerometerListener, RotationListener, Locati
 
     public Database()
     {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
-        String sessionId = dateTimeFormatter.print(DateTime.now());
+        long timestamp = System.currentTimeMillis();
+        String sessionId = DateUtil.format(timestamp);
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("sessions");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference session = database.child(sessionId);
+        DatabaseReference index = database.getReference("index");
+        index.child(String.valueOf(timestamp)).setValue(sessionId);
+
+        DatabaseReference sessions = database.getReference("sessions");
+        DatabaseReference session = sessions.child(sessionId);
 
         accelerometer = session.child("accelerometer");
         rotation = session.child("rotation");

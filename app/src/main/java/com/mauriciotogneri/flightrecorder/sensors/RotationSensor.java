@@ -4,8 +4,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.view.Surface;
-import android.view.WindowManager;
 
 import com.mauriciotogneri.flightrecorder.database.RotationData;
 
@@ -14,14 +12,15 @@ public class RotationSensor implements SensorEventListener
     private final SensorManager sensorManager;
     private final Sensor sensor;
     private final RotationListener listener;
-    private final WindowManager windowManager;
 
-    public RotationSensor(SensorManager sensorManager, RotationListener listener, WindowManager windowManager)
+    private int rate = 0;
+    private long lastTimestamp = 0;
+
+    public RotationSensor(SensorManager sensorManager, RotationListener listener)
     {
         this.sensorManager = sensorManager;
         this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         this.listener = listener;
-        this.windowManager = windowManager;
     }
 
     public Sensor sensor()
@@ -29,10 +28,15 @@ public class RotationSensor implements SensorEventListener
         return sensor;
     }
 
+    public void setRate(int rate)
+    {
+        this.rate = 1000 / rate;
+    }
+
     @Override
     public void onSensorChanged(SensorEvent event)
     {
-        float[] orientation = new float[3];
+        /*float[] orientation = new float[3];
         float[] rotationMatrix = new float[9];
         float[] adjustedRotationMatrix = new float[9];
 
@@ -73,13 +77,20 @@ public class RotationSensor implements SensorEventListener
         orientation[1] = (float) Math.toDegrees(orientation[1]);
         orientation[2] = (float) Math.toDegrees(orientation[2]);
 
-        //listener.onRotationData(System.currentTimeMillis(), orientation[0], orientation[1], orientation[2]);
+        //listener.onRotationData(System.currentTimeMillis(), orientation[0], orientation[1], orientation[2]);*/
 
-        float round1 = ((float) Math.round(event.values[0] * 1000.0f)) / 1000.0f;
-        float round2 = ((float) Math.round(event.values[1] * 1000.0f)) / 1000.0f;
-        float round3 = ((float) Math.round(event.values[2] * 1000.0f)) / 1000.0f;
+        long now = System.currentTimeMillis();
 
-        listener.onRotationData(new RotationData(System.currentTimeMillis(), round1, round2, round3));
+        if (now - lastTimestamp > rate)
+        {
+            lastTimestamp = now;
+
+            float x = ((float) Math.round(event.values[0] * 1000.0f)) / 1000.0f;
+            float y = ((float) Math.round(event.values[1] * 1000.0f)) / 1000.0f;
+            float z = ((float) Math.round(event.values[2] * 1000.0f)) / 1000.0f;
+
+            listener.onRotationData(new RotationData(System.currentTimeMillis(), x, y, z));
+        }
     }
 
     @Override

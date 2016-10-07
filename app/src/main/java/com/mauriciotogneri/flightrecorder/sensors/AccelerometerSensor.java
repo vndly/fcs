@@ -13,6 +13,9 @@ public class AccelerometerSensor implements SensorEventListener
     private final Sensor sensor;
     private final AccelerometerListener listener;
 
+    private int rate = 0;
+    private long lastTimestamp = 0;
+
     public AccelerometerSensor(SensorManager sensorManager, AccelerometerListener listener)
     {
         this.sensorManager = sensorManager;
@@ -25,14 +28,26 @@ public class AccelerometerSensor implements SensorEventListener
         return sensor;
     }
 
+    public void setRate(int rate)
+    {
+        this.rate = 1000 / rate;
+    }
+
     @Override
     public void onSensorChanged(SensorEvent event)
     {
-        listener.onAccelerometerData(new AccelerometerData(
-                System.currentTimeMillis(),
-                event.values[0],
-                event.values[1],
-                event.values[2]));
+        long now = System.currentTimeMillis();
+
+        if (now - lastTimestamp > rate)
+        {
+            lastTimestamp = now;
+
+            listener.onAccelerometerData(new AccelerometerData(
+                    System.currentTimeMillis(),
+                    event.values[0],
+                    event.values[1],
+                    event.values[2]));
+        }
     }
 
     @Override

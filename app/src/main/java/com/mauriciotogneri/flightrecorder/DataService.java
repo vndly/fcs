@@ -7,7 +7,7 @@ import android.hardware.SensorManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.view.WindowManager;
+import android.util.Log;
 
 import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
 import com.mauriciotogneri.flightrecorder.database.LocationData;
@@ -43,7 +43,7 @@ public class DataService extends Service implements AccelerometerListener, Rotat
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = new AccelerometerSensor(sensorManager, this);
-        rotationSensor = new RotationSensor(sensorManager, this, (WindowManager) getSystemService(Context.WINDOW_SERVICE));
+        rotationSensor = new RotationSensor(sensorManager, this);
         locationSensor = new LocationSensor(this, this);
 
         lock = new CustomLock((PowerManager) this.getSystemService(Context.POWER_SERVICE));
@@ -61,14 +61,19 @@ public class DataService extends Service implements AccelerometerListener, Rotat
         this.rotationListener = rotationListener;
         this.locationListener = locationListener;
 
-        sensorManager.registerListener(accelerometerSensor, accelerometerSensor.sensor(), (1000 / accelerometerSampleRate) * 1000);
-        sensorManager.registerListener(rotationSensor, rotationSensor.sensor(), (1000 / rotationSampleRate) * 1000);
+        accelerometerSensor.setRate(accelerometerSampleRate);
+        rotationSensor.setRate(rotationSampleRate);
+
+        sensorManager.registerListener(accelerometerSensor, accelerometerSensor.sensor(), SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(rotationSensor, rotationSensor.sensor(), SensorManager.SENSOR_DELAY_NORMAL);
         locationSensor.requestLocationUpdates(locationSampleRate);
     }
 
     @Override
     public void onAccelerometerData(AccelerometerData data)
     {
+        Log.d("ACCELEROMETER", String.valueOf(data.timestamp()));
+
         if (accelerometerListener != null)
         {
             accelerometerListener.onAccelerometerData(data);

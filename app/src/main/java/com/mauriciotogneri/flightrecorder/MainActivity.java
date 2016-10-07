@@ -25,11 +25,10 @@ import com.mauriciotogneri.flightrecorder.log.FlightLog;
 import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
 import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.flightrecorder.util.DateUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class MainActivity extends FragmentActivity implements AccelerometerListener, RotationListener, LocationListener
 {
@@ -60,8 +59,8 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
     {
         try
         {
-            SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault());
-            File folder = new File(Environment.getExternalStorageDirectory() + "/flightrecorder", sourceDateFormat.format(System.currentTimeMillis()));
+            String timestamp = DateUtil.format(System.currentTimeMillis());
+            File folder = new File(Environment.getExternalStorageDirectory() + "/flightrecorder", timestamp);
 
             if (folder.exists() || folder.mkdirs())
             {
@@ -125,7 +124,7 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
     {
         ServiceBinder binder = (ServiceBinder) service;
         DataService dataService = binder.getService();
-        dataService.startRecording(5, this, 5, this, 500, this);
+        dataService.startRecording(10, this, 10, this, 500, this);
 
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
         chronometer.start();
