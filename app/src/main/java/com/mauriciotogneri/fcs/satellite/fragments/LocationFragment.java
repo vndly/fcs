@@ -29,7 +29,7 @@ public class LocationFragment extends BaseFragment implements LocationListener
     @Override
     public int layout()
     {
-        return R.layout.screen_location;
+        return R.layout.subscreen_location;
     }
 
     @Override

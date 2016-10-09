@@ -23,7 +23,7 @@ public class RotationFragment extends BaseFragment implements RotationListener
     @Override
     public int layout()
     {
-        return R.layout.screen_rotation;
+        return R.layout.subscreen_rotation;
     }
 
     @Override

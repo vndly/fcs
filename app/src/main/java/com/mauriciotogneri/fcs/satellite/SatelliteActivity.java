@@ -7,21 +7,22 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
-import android.widget.Chronometer;
 
-import com.mauriciotogneri.fcs.satellite.DataService.ServiceBinder;
 import com.mauriciotogneri.fcs.R;
+import com.mauriciotogneri.fcs.adapters.ViewPagerAdapter;
+import com.mauriciotogneri.fcs.satellite.DataService.ServiceBinder;
 import com.mauriciotogneri.fcs.satellite.database.AccelerometerData;
 import com.mauriciotogneri.fcs.satellite.database.Database;
 import com.mauriciotogneri.fcs.satellite.database.LocationData;
 import com.mauriciotogneri.fcs.satellite.database.RotationData;
 import com.mauriciotogneri.fcs.satellite.fragments.AccelerometerFragment;
-import com.mauriciotogneri.fcs.satellite.fragments.BaseFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.LocationFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.RotationFragment;
+import com.mauriciotogneri.fcs.satellite.fragments.SessionFragment;
 import com.mauriciotogneri.fcs.satellite.log.FlightLog;
 import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
 import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
@@ -35,6 +36,7 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
 {
     private ServiceConnection serviceConnection;
     private FlightLog flightLog;
+    private SessionFragment sessionFragment;
     private AccelerometerFragment accelerometerFragment;
     private RotationFragment rotationFragment;
     private LocationFragment locationFragment;
@@ -45,7 +47,7 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.satellite_main);
+        setContentView(R.layout.screen_satellite);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -80,24 +82,25 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
 
     private void setupFragments()
     {
+        sessionFragment = new SessionFragment();
         accelerometerFragment = new AccelerometerFragment();
         rotationFragment = new RotationFragment();
         locationFragment = new LocationFragment();
 
-        String[] names = new String[3];
-        names[0] = getString(R.string.screen_satellite_accelerometer);
-        names[1] = getString(R.string.screen_satellite_rotation);
-        names[2] = getString(R.string.screen_satellite_location);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        BaseFragment[] fragments = new BaseFragment[3];
-        fragments[0] = accelerometerFragment;
-        fragments[1] = rotationFragment;
-        fragments[2] = locationFragment;
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(sessionFragment, getString(R.string.screen_satellite_session));
+        adapter.addFragment(accelerometerFragment, getString(R.string.screen_satellite_accelerometer));
+        adapter.addFragment(rotationFragment, getString(R.string.screen_satellite_rotation));
+        adapter.addFragment(locationFragment, getString(R.string.screen_satellite_location));
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new PagerAdapter(this, getSupportFragmentManager(), names, fragments));
         viewPager.setOffscreenPageLimit(3);
         viewPager.setCurrentItem(0);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     private void setupService()
@@ -127,8 +130,7 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
         DataService dataService = binder.getService();
         dataService.startRecording(10, this, 10, this, 500, this);
 
-        Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
-        chronometer.start();
+        sessionFragment.start();
     }
 
     private void onDisconnected()

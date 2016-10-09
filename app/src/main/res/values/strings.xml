@@ -8,6 +8,8 @@
 
     <string name="screen.satellite.time">Time:</string>
 
+    <string name="screen.satellite.session">Session</string>
+
     <string name="screen.satellite.accelerometer">Accelerometer</string>
 
     <string name="screen.satellite.rotation">Rotation</string>

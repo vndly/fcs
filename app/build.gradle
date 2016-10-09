@@ -19,6 +19,13 @@ android
         versionName "0.0.1"
     }
 
+    sourceSets
+    {
+        main.res.srcDirs += 'src/main/res-layouts/ground'
+        main.res.srcDirs += 'src/main/res-layouts/main'
+        main.res.srcDirs += 'src/main/res-layouts/satellite'
+    }
+
     compileOptions
     {
         sourceCompatibility JavaVersion.VERSION_1_7

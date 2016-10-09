@@ -46,7 +46,7 @@ public class AccelerometerFragment extends BaseFragment implements Accelerometer
     @Override
     public int layout()
     {
-        return R.layout.screen_accelerometer;
+        return R.layout.subscreen_accelerometer;
     }
 
     private void configureGraph(int id, LineGraphSeries<DataPoint> series, int color)
