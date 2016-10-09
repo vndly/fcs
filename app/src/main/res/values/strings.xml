@@ -31,4 +31,9 @@
     <string name="screen.satellite.location.speed">Speed:</string>
     <string name="screen.satellite.location.bearing">Bearing:</string>
 
+    <string
+        name="google_maps_key"
+        templateMergeStrategy="preserve"
+        translatable="false">AIzaSyBN8eK-xc78iIRjtsJdFJbfcWVXzoHymcw</string>
+
 </resources>

@@ -1,129 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:layout_height="match_parent">
 
-    <TableRow
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"/>
 
-        <TextView
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:text="@string/screen.satellite.location.longitude"/>
+    <TableLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#CCFFFFFF"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/last.location.longitude"
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unknown"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </TableRow>
+            <TextView
+                style="@style/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="@string/screen.satellite.location.altitude"/>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/last.location.altitude"
+                style="@style/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown"/>
 
-        <TextView
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:text="@string/screen.satellite.location.latitude"/>
+        </TableRow>
 
-        <TextView
-            android:id="@+id/last.location.latitude"
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unknown"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </TableRow>
+            <TextView
+                style="@style/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="@string/screen.satellite.location.accuracy"/>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/last.location.accuracy"
+                style="@style/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown"/>
 
-        <TextView
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:text="@string/screen.satellite.location.altitude"/>
+        </TableRow>
 
-        <TextView
-            android:id="@+id/last.location.altitude"
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unknown"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </TableRow>
+            <TextView
+                style="@style/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="@string/screen.satellite.location.speed"/>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/last.location.speed"
+                style="@style/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown"/>
 
-        <TextView
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:text="@string/screen.satellite.location.accuracy"/>
+        </TableRow>
 
-        <TextView
-            android:id="@+id/last.location.accuracy"
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unknown"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </TableRow>
+            <TextView
+                style="@style/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="@string/screen.satellite.location.bearing"/>
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/last.location.bearing"
+                style="@style/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown"/>
 
-        <TextView
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:text="@string/screen.satellite.location.speed"/>
+        </TableRow>
 
-        <TextView
-            android:id="@+id/last.location.speed"
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unknown"/>
+    </TableLayout>
 
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:text="@string/screen.satellite.location.bearing"/>
-
-        <TextView
-            android:id="@+id/last.location.bearing"
-            style="@style/textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/unknown"/>
-
-    </TableRow>
-
-</TableLayout>
+</RelativeLayout>

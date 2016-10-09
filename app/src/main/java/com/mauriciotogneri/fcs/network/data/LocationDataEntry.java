@@ -5,8 +5,8 @@ import com.mauriciotogneri.fcs.util.NumberUtil;
 
 public class LocationDataEntry
 {
-    public int longitude;
     public int latitude;
+    public int longitude;
     public int altitude;
     public int accuracy;
     public int speed;
@@ -18,8 +18,8 @@ public class LocationDataEntry
 
     public LocationDataEntry(LocationData data)
     {
-        this.longitude = NumberUtil.asInt(data.longitude());
         this.latitude = NumberUtil.asInt(data.latitude());
+        this.longitude = NumberUtil.asInt(data.longitude());
         this.altitude = NumberUtil.asInt(data.altitude());
         this.accuracy = NumberUtil.asInt(data.accuracy());
         this.speed = NumberUtil.asInt(data.speed());
@@ -30,8 +30,8 @@ public class LocationDataEntry
     {
         return new LocationData(
                 timestamp,
-                NumberUtil.asFloat(longitude),
                 NumberUtil.asFloat(latitude),
+                NumberUtil.asFloat(longitude),
                 NumberUtil.asFloat(altitude),
                 NumberUtil.asFloat(accuracy),
                 NumberUtil.asFloat(speed),
