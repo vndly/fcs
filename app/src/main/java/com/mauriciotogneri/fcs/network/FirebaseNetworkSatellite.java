@@ -6,15 +6,17 @@ import com.mauriciotogneri.fcs.model.AccelerometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.model.Session;
-import com.mauriciotogneri.fcs.util.NumberUtil;
+import com.mauriciotogneri.fcs.network.data.AccelerometerDataEntry;
+import com.mauriciotogneri.fcs.network.data.LocationDataEntry;
+import com.mauriciotogneri.fcs.network.data.RotationDataEntry;
 
-public class FirebaseNetwork implements Network
+public class FirebaseNetworkSatellite implements NetworkSatellite
 {
     private DatabaseReference accelerometerRef;
     private DatabaseReference rotationRef;
     private DatabaseReference locationRef;
 
-    public FirebaseNetwork(Session session)
+    public FirebaseNetworkSatellite(Session session)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -32,29 +34,20 @@ public class FirebaseNetwork implements Network
     public void onAccelerometerData(AccelerometerData data)
     {
         DatabaseReference ref = accelerometerRef.child(String.valueOf(data.timestamp()));
-        ref.child("x").setValue(NumberUtil.asInt(data.x()));
-        ref.child("y").setValue(NumberUtil.asInt(data.y()));
-        ref.child("z").setValue(NumberUtil.asInt(data.z()));
+        ref.setValue(new AccelerometerDataEntry(data));
     }
 
     @Override
     public void onRotationData(RotationData data)
     {
         DatabaseReference ref = rotationRef.child(String.valueOf(data.timestamp()));
-        ref.child("x").setValue(NumberUtil.asInt(data.x()));
-        ref.child("y").setValue(NumberUtil.asInt(data.y()));
-        ref.child("z").setValue(NumberUtil.asInt(data.z()));
+        ref.setValue(new RotationDataEntry(data));
     }
 
     @Override
     public void onLocationData(LocationData data)
     {
         DatabaseReference ref = locationRef.child(String.valueOf(data.timestamp()));
-        ref.child("latitude").setValue(NumberUtil.asInt(data.latitude()));
-        ref.child("longitude").setValue(NumberUtil.asInt(data.longitude()));
-        ref.child("altitude").setValue(NumberUtil.asInt(data.altitude()));
-        ref.child("accuracy").setValue(NumberUtil.asInt(data.accuracy()));
-        ref.child("speed").setValue(NumberUtil.asInt(data.speed()));
-        ref.child("bearing").setValue(NumberUtil.asInt(data.bearing()));
+        ref.setValue(new LocationDataEntry(data));
     }
 }

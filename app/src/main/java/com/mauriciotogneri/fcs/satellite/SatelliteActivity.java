@@ -12,24 +12,22 @@ import com.mauriciotogneri.fcs.model.AccelerometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.model.Session;
-import com.mauriciotogneri.fcs.network.FirebaseNetwork;
+import com.mauriciotogneri.fcs.network.FirebaseNetworkSatellite;
 import com.mauriciotogneri.fcs.satellite.fragments.AccelerometerFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.LocationFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.RotationFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.SessionFragment;
 import com.mauriciotogneri.fcs.satellite.log.FlightLog;
-import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
-import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
-import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.fcs.satellite.sensors.SensorListener;
 
-public class SatelliteActivity extends AppCompatActivity implements AccelerometerListener, RotationListener, LocationListener
+public class SatelliteActivity extends AppCompatActivity implements SensorListener
 {
     private FlightLog flightLog;
     private FlightRecorder flightRecorder;
     private AccelerometerFragment accelerometerFragment;
     private RotationFragment rotationFragment;
     private LocationFragment locationFragment;
-    private FirebaseNetwork firebaseNetwork;
+    private FirebaseNetworkSatellite firebaseNetwork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,7 +48,7 @@ public class SatelliteActivity extends AppCompatActivity implements Acceleromete
 
     public void setupNetwork(Session session)
     {
-        this.firebaseNetwork = new FirebaseNetwork(session);
+        this.firebaseNetwork = new FirebaseNetworkSatellite(session);
     }
 
     private void setupLog(Session session)

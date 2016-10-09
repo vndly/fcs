@@ -16,7 +16,7 @@ public class NumberUtil
         return (int) (number * FLOAT_INT_FACTOR);
     }
 
-    public static float asFloat(int number)
+    public static float asFloat(long number)
     {
         return (float)number / (float)FLOAT_INT_FACTOR;
     }

@@ -6,14 +6,12 @@ import com.mauriciotogneri.fcs.model.AccelerometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.model.Session;
-import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
-import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
-import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.fcs.satellite.sensors.SensorListener;
 
 import java.io.File;
 import java.io.IOException;
 
-public class FlightLog implements AccelerometerListener, RotationListener, LocationListener
+public class FlightLog implements SensorListener
 {
     private final SensorLog accelerometerLog;
     private final SensorLog rotationLog;
