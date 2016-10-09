@@ -7,7 +7,8 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.mauriciotogneri.fcs.R;
-import com.mauriciotogneri.fcs.satellite.database.AccelerometerData;
+import com.mauriciotogneri.fcs.base.BaseFragment;
+import com.mauriciotogneri.fcs.model.AccelerometerData;
 import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
 
 import static android.R.attr.x;

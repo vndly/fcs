@@ -3,6 +3,7 @@ package com.mauriciotogneri.fcs.satellite.fragments;
 import android.widget.Chronometer;
 
 import com.mauriciotogneri.fcs.R;
+import com.mauriciotogneri.fcs.base.BaseFragment;
 
 public class SessionFragment extends BaseFragment
 {

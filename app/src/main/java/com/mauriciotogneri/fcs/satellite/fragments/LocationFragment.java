@@ -3,7 +3,8 @@ package com.mauriciotogneri.fcs.satellite.fragments;
 import android.widget.TextView;
 
 import com.mauriciotogneri.fcs.R;
-import com.mauriciotogneri.fcs.satellite.database.LocationData;
+import com.mauriciotogneri.fcs.base.BaseFragment;
+import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
 
 public class LocationFragment extends BaseFragment implements LocationListener

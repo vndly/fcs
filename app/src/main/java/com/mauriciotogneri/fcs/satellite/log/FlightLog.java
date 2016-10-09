@@ -1,8 +1,8 @@
 package com.mauriciotogneri.fcs.satellite.log;
 
-import com.mauriciotogneri.fcs.satellite.database.AccelerometerData;
-import com.mauriciotogneri.fcs.satellite.database.LocationData;
-import com.mauriciotogneri.fcs.satellite.database.RotationData;
+import com.mauriciotogneri.fcs.model.AccelerometerData;
+import com.mauriciotogneri.fcs.model.LocationData;
+import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
 import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;

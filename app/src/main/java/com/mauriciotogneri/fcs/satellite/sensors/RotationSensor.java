@@ -5,7 +5,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.mauriciotogneri.fcs.satellite.database.RotationData;
+import com.mauriciotogneri.fcs.model.RotationData;
 
 public class RotationSensor implements SensorEventListener
 {

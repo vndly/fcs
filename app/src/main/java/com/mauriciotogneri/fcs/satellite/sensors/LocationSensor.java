@@ -13,7 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.mauriciotogneri.fcs.satellite.database.LocationData;
+import com.mauriciotogneri.fcs.model.LocationData;
 
 public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener
 {

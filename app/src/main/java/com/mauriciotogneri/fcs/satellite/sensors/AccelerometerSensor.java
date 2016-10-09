@@ -5,7 +5,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.mauriciotogneri.fcs.satellite.database.AccelerometerData;
+import com.mauriciotogneri.fcs.model.AccelerometerData;
 
 public class AccelerometerSensor implements SensorEventListener
 {

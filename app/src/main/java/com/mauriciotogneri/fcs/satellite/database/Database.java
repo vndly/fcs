@@ -2,10 +2,14 @@ package com.mauriciotogneri.fcs.satellite.database;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mauriciotogneri.fcs.model.AccelerometerData;
+import com.mauriciotogneri.fcs.model.LocationData;
+import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
 import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
 import com.mauriciotogneri.fcs.util.DateUtil;
+import com.mauriciotogneri.fcs.util.NumberUtil;
 
 public class Database implements AccelerometerListener, RotationListener, LocationListener
 {
@@ -34,18 +38,30 @@ public class Database implements AccelerometerListener, RotationListener, Locati
     @Override
     public void onAccelerometerData(AccelerometerData data)
     {
-        accelerometer.child(String.valueOf(data.timestamp())).setValue(data);
+        DatabaseReference ref = accelerometer.child(String.valueOf(data.timestamp()));
+        ref.child("x").setValue(NumberUtil.asInt(data.x()));
+        ref.child("y").setValue(NumberUtil.asInt(data.y()));
+        ref.child("z").setValue(NumberUtil.asInt(data.z()));
     }
 
     @Override
     public void onRotationData(RotationData data)
     {
-        rotation.child(String.valueOf(data.timestamp())).setValue(data);
+        DatabaseReference ref = rotation.child(String.valueOf(data.timestamp()));
+        ref.child("x").setValue(NumberUtil.asInt(data.x()));
+        ref.child("y").setValue(NumberUtil.asInt(data.y()));
+        ref.child("z").setValue(NumberUtil.asInt(data.z()));
     }
 
     @Override
     public void onLocationData(LocationData data)
     {
-        location.child(String.valueOf(data.timestamp())).setValue(data);
+        DatabaseReference ref = location.child(String.valueOf(data.timestamp()));
+        ref.child("latitude").setValue(NumberUtil.asInt(data.latitude()));
+        ref.child("longitude").setValue(NumberUtil.asInt(data.longitude()));
+        ref.child("altitude").setValue(NumberUtil.asInt(data.altitude()));
+        ref.child("accuracy").setValue(NumberUtil.asInt(data.accuracy()));
+        ref.child("speed").setValue(NumberUtil.asInt(data.speed()));
+        ref.child("bearing").setValue(NumberUtil.asInt(data.bearing()));
     }
 }
