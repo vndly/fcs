@@ -1,8 +1,11 @@
 package com.mauriciotogneri.fcs.satellite.log;
 
+import android.os.Environment;
+
 import com.mauriciotogneri.fcs.model.AccelerometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
+import com.mauriciotogneri.fcs.model.Session;
 import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
 import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
@@ -73,5 +76,26 @@ public class FlightLog implements AccelerometerListener, RotationListener, Locat
         accelerometerLog.close();
         rotationLog.close();
         locationLog.close();
+    }
+
+    public static FlightLog create(Session session)
+    {
+        try
+        {
+            File folder = new File(Environment.getExternalStorageDirectory() + "/fcs", session.id());
+
+            if (folder.exists() || folder.mkdirs())
+            {
+                return new FlightLog(folder);
+            }
+            else
+            {
+                throw new RuntimeException();
+            }
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException();
+        }
     }
 }

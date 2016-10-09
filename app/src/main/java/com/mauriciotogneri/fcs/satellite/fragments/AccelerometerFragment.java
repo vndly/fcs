@@ -11,9 +11,6 @@ import com.mauriciotogneri.fcs.base.BaseFragment;
 import com.mauriciotogneri.fcs.model.AccelerometerData;
 import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
 
-import static android.R.attr.x;
-import static android.R.attr.y;
-
 public class AccelerometerFragment extends BaseFragment implements AccelerometerListener
 {
     private long initialTime;
@@ -78,8 +75,8 @@ public class AccelerometerFragment extends BaseFragment implements Accelerometer
         seriesY.appendData(new DataPoint(time, data.y()), true, MAX_DATA_LENGTH);
         seriesZ.appendData(new DataPoint(time, data.z()), true, MAX_DATA_LENGTH);
 
-        lastValueX.setText(String.valueOf(x));
-        lastValueY.setText(String.valueOf(y));
-        lastValueZ.setText(String.valueOf(y));
+        lastValueX.setText(String.valueOf(data.x()));
+        lastValueY.setText(String.valueOf(data.y()));
+        lastValueZ.setText(String.valueOf(data.z()));
     }
 }

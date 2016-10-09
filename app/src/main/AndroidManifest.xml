@@ -41,11 +41,6 @@
             android:configChanges="orientation|screenSize|layoutDirection|screenLayout"
             android:screenOrientation="landscape"/>
 
-        <service
-            android:name="com.mauriciotogneri.fcs.satellite.DataService"
-            android:enabled="true"
-            android:exported="false"/>
-
     </application>
 
 </manifest>

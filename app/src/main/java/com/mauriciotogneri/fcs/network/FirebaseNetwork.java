@@ -5,40 +5,33 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.mauriciotogneri.fcs.model.AccelerometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
-import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
-import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
-import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
-import com.mauriciotogneri.fcs.util.DateUtil;
+import com.mauriciotogneri.fcs.model.Session;
 import com.mauriciotogneri.fcs.util.NumberUtil;
 
-public class FirebaseNetwork implements AccelerometerListener, RotationListener, LocationListener
+public class FirebaseNetwork implements Network
 {
-    private DatabaseReference accelerometer;
-    private DatabaseReference rotation;
-    private DatabaseReference location;
+    private DatabaseReference accelerometerRef;
+    private DatabaseReference rotationRef;
+    private DatabaseReference locationRef;
 
-    public FirebaseNetwork()
+    public FirebaseNetwork(Session session)
     {
-        long timestamp = System.currentTimeMillis();
-        String sessionId = DateUtil.format(timestamp);
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference index = database.getReference("index");
-        index.child(String.valueOf(timestamp)).setValue(sessionId);
+        DatabaseReference indexRef = database.getReference("index");
+        indexRef.child(String.valueOf(session.timestamp())).setValue(session.id());
 
-        DatabaseReference sessions = database.getReference("sessions");
-        DatabaseReference session = sessions.child(sessionId);
+        DatabaseReference sessionRef = database.getReference("sessions").child(session.id());
 
-        accelerometer = session.child("accelerometer");
-        rotation = session.child("rotation");
-        location = session.child("location");
+        this.accelerometerRef = sessionRef.child("accelerometer");
+        this.rotationRef = sessionRef.child("rotation");
+        this.locationRef = sessionRef.child("location");
     }
 
     @Override
     public void onAccelerometerData(AccelerometerData data)
     {
-        DatabaseReference ref = accelerometer.child(String.valueOf(data.timestamp()));
+        DatabaseReference ref = accelerometerRef.child(String.valueOf(data.timestamp()));
         ref.child("x").setValue(NumberUtil.asInt(data.x()));
         ref.child("y").setValue(NumberUtil.asInt(data.y()));
         ref.child("z").setValue(NumberUtil.asInt(data.z()));
@@ -47,7 +40,7 @@ public class FirebaseNetwork implements AccelerometerListener, RotationListener,
     @Override
     public void onRotationData(RotationData data)
     {
-        DatabaseReference ref = rotation.child(String.valueOf(data.timestamp()));
+        DatabaseReference ref = rotationRef.child(String.valueOf(data.timestamp()));
         ref.child("x").setValue(NumberUtil.asInt(data.x()));
         ref.child("y").setValue(NumberUtil.asInt(data.y()));
         ref.child("z").setValue(NumberUtil.asInt(data.z()));
@@ -56,7 +49,7 @@ public class FirebaseNetwork implements AccelerometerListener, RotationListener,
     @Override
     public void onLocationData(LocationData data)
     {
-        DatabaseReference ref = location.child(String.valueOf(data.timestamp()));
+        DatabaseReference ref = locationRef.child(String.valueOf(data.timestamp()));
         ref.child("latitude").setValue(NumberUtil.asInt(data.latitude()));
         ref.child("longitude").setValue(NumberUtil.asInt(data.longitude()));
         ref.child("altitude").setValue(NumberUtil.asInt(data.altitude()));

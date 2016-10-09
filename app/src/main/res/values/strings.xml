@@ -6,11 +6,12 @@
     <string name="screen.main.type.satellite">Satellite</string>
     <string name="screen.main.type.ground">Ground</string>
 
+    <string name="screen.satellite.session.id">ID:</string>
     <string name="screen.satellite.time">Time:</string>
 
     <string name="screen.satellite.session">Session</string>
 
-    <string name="screen.satellite.accelerometer">Accelerometer</string>
+    <string name="screen.satellite.accelerometer">Accel.</string>
 
     <string name="screen.satellite.rotation">Rotation</string>
     <string name="screen.satellite.rotation.x">X:</string>

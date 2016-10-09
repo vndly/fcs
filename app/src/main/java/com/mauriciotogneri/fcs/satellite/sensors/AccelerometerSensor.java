@@ -13,7 +13,7 @@ public class AccelerometerSensor implements SensorEventListener
     private final Sensor sensor;
     private final AccelerometerListener listener;
 
-    private int rate = 0;
+    private static final int rate = 10;
     private long lastTimestamp = 0;
 
     public AccelerometerSensor(SensorManager sensorManager, AccelerometerListener listener)
@@ -21,16 +21,6 @@ public class AccelerometerSensor implements SensorEventListener
         this.sensorManager = sensorManager;
         this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
         this.listener = listener;
-    }
-
-    public Sensor sensor()
-    {
-        return sensor;
-    }
-
-    public void setRate(int rate)
-    {
-        this.rate = 1000 / rate;
     }
 
     @Override
@@ -53,6 +43,11 @@ public class AccelerometerSensor implements SensorEventListener
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy)
     {
+    }
+
+    public void start()
+    {
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void stop()

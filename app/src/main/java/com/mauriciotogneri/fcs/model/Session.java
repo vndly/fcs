@@ -13,7 +13,7 @@ public class Session
 
     public String id()
     {
-        return DateUtil.format(System.currentTimeMillis());
+        return DateUtil.format(timestamp);
     }
 
     public long timestamp()

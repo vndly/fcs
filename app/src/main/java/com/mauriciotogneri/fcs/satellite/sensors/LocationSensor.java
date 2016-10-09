@@ -20,8 +20,8 @@ public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedLi
     private final GoogleApiClient googleApiClient;
     private final LocationListener listener;
 
-    private boolean requestLocationUpdates = false;
-    private int locationSampleRate = 0;
+    private boolean requestedLocationUpdates = false;
+    private static final int rate = 500;
 
     public LocationSensor(Context context, LocationListener listener)
     {
@@ -36,29 +36,12 @@ public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedLi
         this.googleApiClient.connect();
     }
 
-    public void requestLocationUpdates(int locationSampleRate)
-    {
-        if (googleApiClient.isConnected())
-        {
-            LocationRequest locationRequest = new LocationRequest();
-            locationRequest.setInterval(locationSampleRate);
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
-        }
-        else
-        {
-            this.requestLocationUpdates = true;
-            this.locationSampleRate = locationSampleRate;
-        }
-    }
-
     @Override
     public void onConnected(@Nullable Bundle bundle)
     {
-        if (requestLocationUpdates)
+        if (requestedLocationUpdates)
         {
-            requestLocationUpdates(locationSampleRate);
+            start();
         }
     }
 
@@ -84,6 +67,22 @@ public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedLi
                 location.getSpeed(),
                 location.getBearing()
         ));
+    }
+
+    public void start()
+    {
+        if (googleApiClient.isConnected())
+        {
+            LocationRequest locationRequest = new LocationRequest();
+            locationRequest.setInterval(rate);
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+        }
+        else
+        {
+            this.requestedLocationUpdates = true;
+        }
     }
 
     public void stop()
