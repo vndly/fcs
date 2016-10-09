@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder;
+package com.mauriciotogneri.fcs;
 
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;

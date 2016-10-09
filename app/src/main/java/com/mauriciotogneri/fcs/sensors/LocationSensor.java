@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder.sensors;
+package com.mauriciotogneri.fcs.sensors;
 
 import android.content.Context;
 import android.location.Location;
@@ -13,7 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.mauriciotogneri.flightrecorder.database.LocationData;
+import com.mauriciotogneri.fcs.database.LocationData;
 
 public class LocationSensor implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener
 {

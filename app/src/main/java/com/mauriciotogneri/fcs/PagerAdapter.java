@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder;
+package com.mauriciotogneri.fcs;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,7 +13,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
 
-import com.mauriciotogneri.flightrecorder.fragments.BaseFragment;
+import com.mauriciotogneri.fcs.fragments.BaseFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter
 {

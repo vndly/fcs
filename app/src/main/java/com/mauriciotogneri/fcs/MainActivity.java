@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder;
+package com.mauriciotogneri.fcs;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,20 +12,20 @@ import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
 import android.widget.Chronometer;
 
-import com.mauriciotogneri.flightrecorder.DataService.ServiceBinder;
-import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
-import com.mauriciotogneri.flightrecorder.database.Database;
-import com.mauriciotogneri.flightrecorder.database.LocationData;
-import com.mauriciotogneri.flightrecorder.database.RotationData;
-import com.mauriciotogneri.flightrecorder.fragments.AccelerometerFragment;
-import com.mauriciotogneri.flightrecorder.fragments.BaseFragment;
-import com.mauriciotogneri.flightrecorder.fragments.LocationFragment;
-import com.mauriciotogneri.flightrecorder.fragments.RotationFragment;
-import com.mauriciotogneri.flightrecorder.log.FlightLog;
-import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
-import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
-import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
-import com.mauriciotogneri.flightrecorder.util.DateUtil;
+import com.mauriciotogneri.fcs.DataService.ServiceBinder;
+import com.mauriciotogneri.fcs.database.AccelerometerData;
+import com.mauriciotogneri.fcs.database.Database;
+import com.mauriciotogneri.fcs.database.LocationData;
+import com.mauriciotogneri.fcs.database.RotationData;
+import com.mauriciotogneri.fcs.fragments.AccelerometerFragment;
+import com.mauriciotogneri.fcs.fragments.BaseFragment;
+import com.mauriciotogneri.fcs.fragments.LocationFragment;
+import com.mauriciotogneri.fcs.fragments.RotationFragment;
+import com.mauriciotogneri.fcs.log.FlightLog;
+import com.mauriciotogneri.fcs.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.fcs.sensors.LocationSensor.LocationListener;
+import com.mauriciotogneri.fcs.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.fcs.util.DateUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity implements AccelerometerListe
         try
         {
             String timestamp = DateUtil.format(System.currentTimeMillis());
-            File folder = new File(Environment.getExternalStorageDirectory() + "/flightrecorder", timestamp);
+            File folder = new File(Environment.getExternalStorageDirectory() + "/fcs", timestamp);
 
             if (folder.exists() || folder.mkdirs())
             {

@@ -1,11 +1,11 @@
-package com.mauriciotogneri.flightrecorder.database;
+package com.mauriciotogneri.fcs.database;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
-import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
-import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
-import com.mauriciotogneri.flightrecorder.util.DateUtil;
+import com.mauriciotogneri.fcs.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.fcs.sensors.LocationSensor.LocationListener;
+import com.mauriciotogneri.fcs.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.fcs.util.DateUtil;
 
 public class Database implements AccelerometerListener, RotationListener, LocationListener
 {

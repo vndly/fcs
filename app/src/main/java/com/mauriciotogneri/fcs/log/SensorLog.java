@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder.log;
+package com.mauriciotogneri.fcs.log;
 
 import java.io.BufferedWriter;
 import java.io.File;

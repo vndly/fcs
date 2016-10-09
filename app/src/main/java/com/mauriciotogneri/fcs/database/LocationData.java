@@ -1,6 +1,6 @@
-package com.mauriciotogneri.flightrecorder.database;
+package com.mauriciotogneri.fcs.database;
 
-import com.mauriciotogneri.flightrecorder.util.NumberUtil;
+import com.mauriciotogneri.fcs.util.NumberUtil;
 
 public class LocationData
 {

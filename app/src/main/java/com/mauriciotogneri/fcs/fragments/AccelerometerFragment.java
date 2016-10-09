@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder.fragments;
+package com.mauriciotogneri.fcs.fragments;
 
 import android.graphics.Color;
 import android.widget.TextView;
@@ -6,9 +6,9 @@ import android.widget.TextView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.mauriciotogneri.flightrecorder.R;
-import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
-import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.fcs.R;
+import com.mauriciotogneri.fcs.database.AccelerometerData;
+import com.mauriciotogneri.fcs.sensors.AccelerometerSensor.AccelerometerListener;
 
 import static android.R.attr.x;
 import static android.R.attr.y;

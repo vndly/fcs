@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder.fragments;
+package com.mauriciotogneri.fcs.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

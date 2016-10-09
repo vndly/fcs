@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "314957098040",
-    "firebase_url": "https://flightrecorder-2edf9.firebaseio.com",
-    "project_id": "flightrecorder-2edf9",
-    "storage_bucket": "flightrecorder-2edf9.appspot.com"
+    "project_number": "192272064790",
+    "firebase_url": "https://flight-control-system.firebaseio.com",
+    "project_id": "flight-control-system",
+    "storage_bucket": "flight-control-system.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:314957098040:android:fd9c877927bf212b",
+        "mobilesdk_app_id": "1:192272064790:android:f976a2bcfb2cb726",
         "android_client_info": {
-          "package_name": "com.mauriciotogneri.flightrecorder"
+          "package_name": "com.mauriciotogneri.fcs"
         }
       },
       "oauth_client": [
         {
-          "client_id": "314957098040-jek9ekvsrmv61s36ietbeh2s9nke51ut.apps.googleusercontent.com",
+          "client_id": "192272064790-kut2l34batf7h860q89u4bv27emkmisu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.mauriciotogneri.flightrecorder",
+            "package_name": "com.mauriciotogneri.fcs",
             "certificate_hash": "808DCD3D2690FF6F4D7BF006A9693003DB48BC66"
           }
         },
         {
-          "client_id": "314957098040-jod5m4baub67d9bdatrvmlsd6f591kiq.apps.googleusercontent.com",
+          "client_id": "192272064790-7mptak90355t3i9ci3kj9sfii1o0kc2h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCF7YicKNiD_Uc7-li5XxTL040IAWLGLl4"
+          "current_key": "AIzaSyDTdB7Pp131lLNRMQY_Sgsn1z4ZAcxYwzc"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "314957098040-jod5m4baub67d9bdatrvmlsd6f591kiq.apps.googleusercontent.com",
+              "client_id": "192272064790-7mptak90355t3i9ci3kj9sfii1o0kc2h.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

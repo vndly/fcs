@@ -1,11 +1,11 @@
-package com.mauriciotogneri.flightrecorder.log;
+package com.mauriciotogneri.fcs.log;
 
-import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
-import com.mauriciotogneri.flightrecorder.database.LocationData;
-import com.mauriciotogneri.flightrecorder.database.RotationData;
-import com.mauriciotogneri.flightrecorder.sensors.AccelerometerSensor.AccelerometerListener;
-import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
-import com.mauriciotogneri.flightrecorder.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.fcs.database.AccelerometerData;
+import com.mauriciotogneri.fcs.database.LocationData;
+import com.mauriciotogneri.fcs.database.RotationData;
+import com.mauriciotogneri.fcs.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.fcs.sensors.LocationSensor.LocationListener;
+import com.mauriciotogneri.fcs.sensors.RotationSensor.RotationListener;
 
 import java.io.File;
 import java.io.IOException;

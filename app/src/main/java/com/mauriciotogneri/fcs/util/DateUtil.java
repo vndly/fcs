@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder.util;
+package com.mauriciotogneri.fcs.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;

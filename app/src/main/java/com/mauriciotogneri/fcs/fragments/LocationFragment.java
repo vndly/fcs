@@ -1,10 +1,10 @@
-package com.mauriciotogneri.flightrecorder.fragments;
+package com.mauriciotogneri.fcs.fragments;
 
 import android.widget.TextView;
 
-import com.mauriciotogneri.flightrecorder.R;
-import com.mauriciotogneri.flightrecorder.database.LocationData;
-import com.mauriciotogneri.flightrecorder.sensors.LocationSensor.LocationListener;
+import com.mauriciotogneri.fcs.R;
+import com.mauriciotogneri.fcs.database.LocationData;
+import com.mauriciotogneri.fcs.sensors.LocationSensor.LocationListener;
 
 public class LocationFragment extends BaseFragment implements LocationListener
 {

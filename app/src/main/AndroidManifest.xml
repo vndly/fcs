@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.mauriciotogneri.flightrecorder"
+    package="com.mauriciotogneri.fcs"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -21,7 +21,7 @@
         android:theme="@style/app_theme">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.mauriciotogneri.fcs.MainActivity"
             android:configChanges="orientation|screenSize|layoutDirection|screenLayout"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,7 +31,7 @@
         </activity>
 
         <service
-            android:name=".DataService"
+            android:name="com.mauriciotogneri.fcs.DataService"
             android:enabled="true"
             android:exported="false"/>
 

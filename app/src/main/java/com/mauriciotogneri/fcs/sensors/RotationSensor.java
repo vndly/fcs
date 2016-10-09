@@ -1,11 +1,11 @@
-package com.mauriciotogneri.flightrecorder.sensors;
+package com.mauriciotogneri.fcs.sensors;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.mauriciotogneri.flightrecorder.database.RotationData;
+import com.mauriciotogneri.fcs.database.RotationData;
 
 public class RotationSensor implements SensorEventListener
 {

@@ -1,11 +1,11 @@
-package com.mauriciotogneri.flightrecorder.sensors;
+package com.mauriciotogneri.fcs.sensors;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-import com.mauriciotogneri.flightrecorder.database.AccelerometerData;
+import com.mauriciotogneri.fcs.database.AccelerometerData;
 
 public class AccelerometerSensor implements SensorEventListener
 {

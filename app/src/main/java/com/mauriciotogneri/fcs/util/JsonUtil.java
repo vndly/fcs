@@ -1,4 +1,4 @@
-package com.mauriciotogneri.flightrecorder.util;
+package com.mauriciotogneri.fcs.util;
 
 import com.google.gson.Gson;
 
