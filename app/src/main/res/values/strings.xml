@@ -13,6 +13,9 @@
 
     <string name="screen.satellite.accelerometer">Accel.</string>
 
+    <string name="screen.satellite.barometer">Barometer</string>
+    <string name="screen.satellite.barometer.pressure">Pressure:</string>
+
     <string name="screen.satellite.rotation">Rotation</string>
     <string name="screen.satellite.rotation.x">X:</string>
     <string name="screen.satellite.rotation.y">Y:</string>

@@ -5,30 +5,29 @@ import android.hardware.SensorManager;
 import android.os.PowerManager;
 
 import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor;
-import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.fcs.satellite.sensors.BarometerSensor;
 import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor;
-import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
 import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor;
-import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.fcs.satellite.sensors.SensorListener;
 import com.mauriciotogneri.fcs.util.CustomLock;
 
 public class FlightRecorder
 {
     private final AccelerometerSensor accelerometerSensor;
     private final RotationSensor rotationSensor;
+    private final BarometerSensor barometerSensor;
     private final LocationSensor locationSensor;
     private final CustomLock lock;
 
     public FlightRecorder(
             Context context,
-            AccelerometerListener accelerometerListener,
-            RotationListener rotationListener,
-            LocationListener locationListener)
+            SensorListener sensorListener)
     {
         SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        this.accelerometerSensor = new AccelerometerSensor(sensorManager, accelerometerListener);
-        this.rotationSensor = new RotationSensor(sensorManager, rotationListener);
-        this.locationSensor = new LocationSensor(context, locationListener);
+        this.accelerometerSensor = new AccelerometerSensor(sensorManager, sensorListener);
+        this.rotationSensor = new RotationSensor(sensorManager, sensorListener);
+        this.barometerSensor = new BarometerSensor(sensorManager, sensorListener);
+        this.locationSensor = new LocationSensor(context, sensorListener);
 
         this.lock = new CustomLock((PowerManager) context.getSystemService(Context.POWER_SERVICE));
         this.lock.acquire();
@@ -38,6 +37,7 @@ public class FlightRecorder
     {
         accelerometerSensor.start();
         rotationSensor.start();
+        barometerSensor.start();
         locationSensor.start();
     }
 
@@ -45,6 +45,7 @@ public class FlightRecorder
     {
         accelerometerSensor.stop();
         rotationSensor.stop();
+        barometerSensor.stop();
         locationSensor.stop();
 
         lock.release();

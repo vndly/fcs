@@ -9,11 +9,13 @@ import android.view.WindowManager;
 import com.mauriciotogneri.fcs.R;
 import com.mauriciotogneri.fcs.adapters.ViewPagerAdapter;
 import com.mauriciotogneri.fcs.model.AccelerometerData;
+import com.mauriciotogneri.fcs.model.BarometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.model.Session;
 import com.mauriciotogneri.fcs.network.FirebaseNetworkSatellite;
 import com.mauriciotogneri.fcs.satellite.fragments.AccelerometerFragment;
+import com.mauriciotogneri.fcs.satellite.fragments.BarometerFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.LocationFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.RotationFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.SessionFragment;
@@ -26,6 +28,7 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
     private FlightRecorder flightRecorder;
     private AccelerometerFragment accelerometerFragment;
     private RotationFragment rotationFragment;
+    private BarometerFragment barometerFragment;
     private LocationFragment locationFragment;
     private FirebaseNetworkSatellite firebaseNetwork;
 
@@ -61,6 +64,7 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
         SessionFragment sessionFragment = SessionFragment.newInstance(session);
         this.accelerometerFragment = new AccelerometerFragment();
         this.rotationFragment = new RotationFragment();
+        this.barometerFragment = new BarometerFragment();
         this.locationFragment = new LocationFragment();
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -69,6 +73,7 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
         adapter.addFragment(sessionFragment, getString(R.string.screen_satellite_session));
         adapter.addFragment(accelerometerFragment, getString(R.string.screen_satellite_accelerometer));
         adapter.addFragment(rotationFragment, getString(R.string.screen_satellite_rotation));
+        adapter.addFragment(barometerFragment, getString(R.string.screen_satellite_barometer));
         adapter.addFragment(locationFragment, getString(R.string.screen_satellite_location));
 
         viewPager.setOffscreenPageLimit(4);
@@ -81,7 +86,7 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
 
     private void setupFlightRecorder()
     {
-        this.flightRecorder = new FlightRecorder(this, this, this, this);
+        this.flightRecorder = new FlightRecorder(this, this);
         this.flightRecorder.start();
     }
 
@@ -99,6 +104,14 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
         rotationFragment.onRotationData(data);
         flightLog.onRotationData(data);
         firebaseNetwork.onRotationData(data);
+    }
+
+    @Override
+    public void onBarometerData(BarometerData data)
+    {
+        barometerFragment.onBarometerData(data);
+        flightLog.onBarometerData(data);
+        firebaseNetwork.onBarometerData(data);
     }
 
     @Override

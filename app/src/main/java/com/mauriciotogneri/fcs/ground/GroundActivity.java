@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import com.mauriciotogneri.fcs.R;
 import com.mauriciotogneri.fcs.adapters.ViewPagerAdapter;
 import com.mauriciotogneri.fcs.model.AccelerometerData;
+import com.mauriciotogneri.fcs.model.BarometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.network.FirebaseNetworkGround;
@@ -64,13 +65,19 @@ public class GroundActivity extends AppCompatActivity implements SensorListener
     }
 
     @Override
-    public void onLocationData(LocationData data)
+    public void onRotationData(RotationData data)
     {
 
     }
 
     @Override
-    public void onRotationData(RotationData data)
+    public void onBarometerData(BarometerData data)
+    {
+
+    }
+
+    @Override
+    public void onLocationData(LocationData data)
     {
 
     }

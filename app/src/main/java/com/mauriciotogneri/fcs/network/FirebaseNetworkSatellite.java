@@ -3,10 +3,12 @@ package com.mauriciotogneri.fcs.network;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mauriciotogneri.fcs.model.AccelerometerData;
+import com.mauriciotogneri.fcs.model.BarometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.model.Session;
 import com.mauriciotogneri.fcs.network.data.AccelerometerDataEntry;
+import com.mauriciotogneri.fcs.network.data.BarometerDataEntry;
 import com.mauriciotogneri.fcs.network.data.LocationDataEntry;
 import com.mauriciotogneri.fcs.network.data.RotationDataEntry;
 
@@ -14,6 +16,7 @@ public class FirebaseNetworkSatellite implements NetworkSatellite
 {
     private DatabaseReference accelerometerRef;
     private DatabaseReference rotationRef;
+    private DatabaseReference barometerRef;
     private DatabaseReference locationRef;
 
     public FirebaseNetworkSatellite(Session session)
@@ -27,6 +30,7 @@ public class FirebaseNetworkSatellite implements NetworkSatellite
 
         this.accelerometerRef = sessionRef.child("accelerometer");
         this.rotationRef = sessionRef.child("rotation");
+        this.barometerRef = sessionRef.child("barometer");
         this.locationRef = sessionRef.child("location");
     }
 
@@ -42,6 +46,13 @@ public class FirebaseNetworkSatellite implements NetworkSatellite
     {
         DatabaseReference ref = rotationRef.child(String.valueOf(data.timestamp()));
         ref.setValue(new RotationDataEntry(data));
+    }
+
+    @Override
+    public void onBarometerData(BarometerData data)
+    {
+        DatabaseReference ref = barometerRef.child(String.valueOf(data.timestamp()));
+        ref.setValue(new BarometerDataEntry(data));
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.mauriciotogneri.fcs.satellite.log;
 import android.os.Environment;
 
 import com.mauriciotogneri.fcs.model.AccelerometerData;
+import com.mauriciotogneri.fcs.model.BarometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.model.Session;
@@ -15,6 +16,7 @@ public class FlightLog implements SensorListener
 {
     private final SensorLog accelerometerLog;
     private final SensorLog rotationLog;
+    private final SensorLog barometerLog;
     private final SensorLog locationLog;
     private boolean closed = false;
 
@@ -22,6 +24,7 @@ public class FlightLog implements SensorListener
     {
         this.accelerometerLog = new SensorLog(new File(parent, "accelerometer.csv"));
         this.rotationLog = new SensorLog(new File(parent, "rotation.csv"));
+        this.barometerLog = new SensorLog(new File(parent, "barometer.csv"));
         this.locationLog = new SensorLog(new File(parent, "location.csv"));
     }
 
@@ -52,6 +55,18 @@ public class FlightLog implements SensorListener
     }
 
     @Override
+    public void onBarometerData(BarometerData data)
+    {
+        if (!closed)
+        {
+            locationLog.log(
+                    data.timestamp(),
+                    data.pressure()
+            );
+        }
+    }
+
+    @Override
     public void onLocationData(LocationData data)
     {
         if (!closed)
@@ -73,6 +88,7 @@ public class FlightLog implements SensorListener
         closed = true;
         accelerometerLog.close();
         rotationLog.close();
+        barometerLog.close();
         locationLog.close();
     }
 
