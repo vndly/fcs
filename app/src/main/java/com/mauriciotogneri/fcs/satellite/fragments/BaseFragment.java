@@ -1,4 +1,4 @@
-package com.mauriciotogneri.fcs.fragments;
+package com.mauriciotogneri.fcs.satellite.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

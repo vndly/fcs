@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.main.time"/>
+            android:textAllCaps="true"
+            android:text="@string/screen.satellite.time"/>
 
         <Chronometer
             android:id="@+id/chronometer"

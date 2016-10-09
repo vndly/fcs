@@ -1,10 +1,10 @@
-package com.mauriciotogneri.fcs.fragments;
+package com.mauriciotogneri.fcs.satellite.fragments;
 
 import android.widget.TextView;
 
 import com.mauriciotogneri.fcs.R;
-import com.mauriciotogneri.fcs.database.RotationData;
-import com.mauriciotogneri.fcs.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.fcs.satellite.database.RotationData;
+import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
 
 public class RotationFragment extends BaseFragment implements RotationListener
 {

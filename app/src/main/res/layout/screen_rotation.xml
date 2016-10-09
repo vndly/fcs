@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.rotation.x"/>
+            android:text="@string/screen.satellite.rotation.x"/>
 
         <TextView
             android:id="@+id/last.rotation.x"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.rotation.y"/>
+            android:text="@string/screen.satellite.rotation.y"/>
 
         <TextView
             android:id="@+id/last.rotation.y"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.rotation.z"/>
+            android:text="@string/screen.satellite.rotation.z"/>
 
         <TextView
             android:id="@+id/last.rotation.z"

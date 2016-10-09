@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.location.latitude"/>
+            android:text="@string/screen.satellite.location.latitude"/>
 
         <TextView
             android:id="@+id/last.location.latitude"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.location.longitude"/>
+            android:text="@string/screen.satellite.location.longitude"/>
 
         <TextView
             android:id="@+id/last.location.longitude"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.location.altitude"/>
+            android:text="@string/screen.satellite.location.altitude"/>
 
         <TextView
             android:id="@+id/last.location.altitude"
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.location.accuracy"/>
+            android:text="@string/screen.satellite.location.accuracy"/>
 
         <TextView
             android:id="@+id/last.location.accuracy"
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.location.speed"/>
+            android:text="@string/screen.satellite.location.speed"/>
 
         <TextView
             android:id="@+id/last.location.speed"
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.location.bearing"/>
+            android:text="@string/screen.satellite.location.bearing"/>
 
         <TextView
             android:id="@+id/last.location.bearing"

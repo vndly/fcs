@@ -1,10 +1,10 @@
-package com.mauriciotogneri.fcs.database;
+package com.mauriciotogneri.fcs.satellite.database;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mauriciotogneri.fcs.sensors.AccelerometerSensor.AccelerometerListener;
-import com.mauriciotogneri.fcs.sensors.LocationSensor.LocationListener;
-import com.mauriciotogneri.fcs.sensors.RotationSensor.RotationListener;
+import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
+import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
 import com.mauriciotogneri.fcs.util.DateUtil;
 
 public class Database implements AccelerometerListener, RotationListener, LocationListener

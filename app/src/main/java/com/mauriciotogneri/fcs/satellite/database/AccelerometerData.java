@@ -1,4 +1,4 @@
-package com.mauriciotogneri.fcs.database;
+package com.mauriciotogneri.fcs.satellite.database;
 
 import com.mauriciotogneri.fcs.util.NumberUtil;
 

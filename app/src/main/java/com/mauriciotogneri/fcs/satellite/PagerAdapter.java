@@ -1,4 +1,4 @@
-package com.mauriciotogneri.fcs;
+package com.mauriciotogneri.fcs.satellite;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,7 +13,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
 
-import com.mauriciotogneri.fcs.fragments.BaseFragment;
+import com.mauriciotogneri.fcs.satellite.fragments.BaseFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter
 {

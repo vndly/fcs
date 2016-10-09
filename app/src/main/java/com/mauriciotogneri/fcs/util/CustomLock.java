@@ -1,4 +1,4 @@
-package com.mauriciotogneri.fcs;
+package com.mauriciotogneri.fcs.util;
 
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;

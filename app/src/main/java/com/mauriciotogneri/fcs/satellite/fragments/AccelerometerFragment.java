@@ -1,4 +1,4 @@
-package com.mauriciotogneri.fcs.fragments;
+package com.mauriciotogneri.fcs.satellite.fragments;
 
 import android.graphics.Color;
 import android.widget.TextView;
@@ -7,8 +7,8 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.mauriciotogneri.fcs.R;
-import com.mauriciotogneri.fcs.database.AccelerometerData;
-import com.mauriciotogneri.fcs.sensors.AccelerometerSensor.AccelerometerListener;
+import com.mauriciotogneri.fcs.satellite.database.AccelerometerData;
+import com.mauriciotogneri.fcs.satellite.sensors.AccelerometerSensor.AccelerometerListener;
 
 import static android.R.attr.x;
 import static android.R.attr.y;

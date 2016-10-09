@@ -1,4 +1,4 @@
-package com.mauriciotogneri.fcs.log;
+package com.mauriciotogneri.fcs.satellite.log;
 
 import java.io.BufferedWriter;
 import java.io.File;

@@ -21,17 +21,28 @@
         android:theme="@style/app_theme">
 
         <activity
-            android:name="com.mauriciotogneri.fcs.MainActivity"
-            android:configChanges="orientation|screenSize|layoutDirection|screenLayout"
-            android:screenOrientation="portrait">
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|layoutDirection|screenLayout">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
 
+        <activity
+            android:name=".satellite.SatelliteActivity"
+            android:configChanges="orientation|screenSize|layoutDirection|screenLayout"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ground.GroundActivity"
+            android:configChanges="orientation|screenSize|layoutDirection|screenLayout"
+            android:screenOrientation="landscape"/>
+
         <service
-            android:name="com.mauriciotogneri.fcs.DataService"
+            android:name="com.mauriciotogneri.fcs.satellite.DataService"
             android:enabled="true"
             android:exported="false"/>
 
