@@ -25,4 +25,17 @@ public class LocationDataEntry
         this.speed = NumberUtil.asInt(data.speed());
         this.bearing = NumberUtil.asInt(data.bearing());
     }
+
+    public LocationData data(long timestamp)
+    {
+        return new LocationData(
+                timestamp,
+                NumberUtil.asFloat(longitude),
+                NumberUtil.asFloat(latitude),
+                NumberUtil.asFloat(altitude),
+                NumberUtil.asFloat(accuracy),
+                NumberUtil.asFloat(speed),
+                NumberUtil.asFloat(bearing)
+        );
+    }
 }

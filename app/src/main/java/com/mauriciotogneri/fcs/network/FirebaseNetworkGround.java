@@ -7,6 +7,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mauriciotogneri.fcs.network.data.AccelerometerDataEntry;
+import com.mauriciotogneri.fcs.network.data.BarometerDataEntry;
+import com.mauriciotogneri.fcs.network.data.LocationDataEntry;
+import com.mauriciotogneri.fcs.network.data.RotationDataEntry;
 import com.mauriciotogneri.fcs.satellite.sensors.SensorListener;
 
 import java.util.ArrayList;
@@ -18,9 +21,6 @@ import java.util.Map;
 public class FirebaseNetworkGround
 {
     private SensorListener sensorListener;
-    private DatabaseReference accelerometerRef;
-    private DatabaseReference rotationRef;
-    private DatabaseReference locationRef;
 
     public FirebaseNetworkGround(final SensorListener sensorListener)
     {
@@ -39,6 +39,9 @@ public class FirebaseNetworkGround
                 DatabaseReference sessionsRef = database.getReference("sessions").child(sessionId);
 
                 listenAccelerometerData(sessionsRef);
+                listenRotationData(sessionsRef);
+                listenBarometerData(sessionsRef);
+                listenLocationData(sessionsRef);
             }
 
             @Override
@@ -64,6 +67,129 @@ public class FirebaseNetworkGround
                     AccelerometerDataEntry entry = dataSnapshot.getValue(AccelerometerDataEntry.class);
 
                     sensorListener.onAccelerometerData(entry.data(timestamp));
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+            }
+        });
+    }
+
+    private void listenRotationData(DatabaseReference sessionsRef)
+    {
+        DatabaseReference accelerometerRef = sessionsRef.child("rotation");
+
+        accelerometerRef.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                if (s != null)
+                {
+                    long timestamp = Long.parseLong(dataSnapshot.getKey());
+                    RotationDataEntry entry = dataSnapshot.getValue(RotationDataEntry.class);
+
+                    sensorListener.onRotationData(entry.data(timestamp));
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+            }
+        });
+    }
+
+    private void listenBarometerData(DatabaseReference sessionsRef)
+    {
+        DatabaseReference accelerometerRef = sessionsRef.child("barometer");
+
+        accelerometerRef.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                if (s != null)
+                {
+                    long timestamp = Long.parseLong(dataSnapshot.getKey());
+                    BarometerDataEntry entry = dataSnapshot.getValue(BarometerDataEntry.class);
+
+                    sensorListener.onBarometerData(entry.data(timestamp));
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+            }
+        });
+    }
+
+    private void listenLocationData(DatabaseReference sessionsRef)
+    {
+        DatabaseReference accelerometerRef = sessionsRef.child("location");
+
+        accelerometerRef.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            @SuppressWarnings("unchecked")
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                if (s != null)
+                {
+                    long timestamp = Long.parseLong(dataSnapshot.getKey());
+                    LocationDataEntry entry = dataSnapshot.getValue(LocationDataEntry.class);
+
+                    sensorListener.onLocationData(entry.data(timestamp));
                 }
             }
 

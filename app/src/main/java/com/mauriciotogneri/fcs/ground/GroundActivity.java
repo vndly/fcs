@@ -14,11 +14,17 @@ import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.network.FirebaseNetworkGround;
 import com.mauriciotogneri.fcs.satellite.fragments.AccelerometerFragment;
+import com.mauriciotogneri.fcs.satellite.fragments.BarometerFragment;
+import com.mauriciotogneri.fcs.satellite.fragments.LocationFragment;
+import com.mauriciotogneri.fcs.satellite.fragments.RotationFragment;
 import com.mauriciotogneri.fcs.satellite.sensors.SensorListener;
 
 public class GroundActivity extends AppCompatActivity implements SensorListener
 {
     private AccelerometerFragment accelerometerFragment;
+    private RotationFragment rotationFragment;
+    private BarometerFragment barometerFragment;
+    private LocationFragment locationFragment;
     private FirebaseNetworkGround firebaseNetwork;
 
     @Override
@@ -42,15 +48,19 @@ public class GroundActivity extends AppCompatActivity implements SensorListener
     private void setupFragments()
     {
         this.accelerometerFragment = new AccelerometerFragment();
+        this.rotationFragment = new RotationFragment();
+        this.barometerFragment = new BarometerFragment();
+        this.locationFragment = new LocationFragment();
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(accelerometerFragment, "ONE");
-        adapter.addFragment(new OneFragment(), "TWO");
-        adapter.addFragment(new OneFragment(), "THREE");
+        adapter.addFragment(accelerometerFragment, getString(R.string.screen_satellite_accelerometer));
+        adapter.addFragment(rotationFragment, getString(R.string.screen_satellite_rotation));
+        adapter.addFragment(barometerFragment, getString(R.string.screen_satellite_barometer));
+        adapter.addFragment(locationFragment, getString(R.string.screen_satellite_location));
 
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setCurrentItem(0);
         viewPager.setAdapter(adapter);
 
@@ -67,18 +77,18 @@ public class GroundActivity extends AppCompatActivity implements SensorListener
     @Override
     public void onRotationData(RotationData data)
     {
-
+        rotationFragment.onRotationData(data);
     }
 
     @Override
     public void onBarometerData(BarometerData data)
     {
-
+        barometerFragment.onBarometerData(data);
     }
 
     @Override
     public void onLocationData(LocationData data)
     {
-
+        locationFragment.onLocationData(data);
     }
 }

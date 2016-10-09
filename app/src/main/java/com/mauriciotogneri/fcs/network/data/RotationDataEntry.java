@@ -19,4 +19,14 @@ public class RotationDataEntry
         this.y = NumberUtil.asInt(data.y());
         this.z = NumberUtil.asInt(data.z());
     }
+
+    public RotationData data(long timestamp)
+    {
+        return new RotationData(
+                timestamp,
+                NumberUtil.asFloat(x),
+                NumberUtil.asFloat(y),
+                NumberUtil.asFloat(z)
+        );
+    }
 }

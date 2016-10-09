@@ -76,7 +76,7 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
         adapter.addFragment(barometerFragment, getString(R.string.screen_satellite_barometer));
         adapter.addFragment(locationFragment, getString(R.string.screen_satellite_location));
 
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(5);
         viewPager.setCurrentItem(0);
         viewPager.setAdapter(adapter);
 

@@ -3,6 +3,8 @@
 
     <string name="app_name">Flight Control System</string>
 
+    <string name="unknown">\?</string>
+
     <string name="screen.main.type.satellite">Satellite</string>
     <string name="screen.main.type.ground">Ground</string>
 
@@ -11,7 +13,7 @@
 
     <string name="screen.satellite.session">Session</string>
 
-    <string name="screen.satellite.accelerometer">Accel.</string>
+    <string name="screen.satellite.accelerometer">Acceleration</string>
 
     <string name="screen.satellite.barometer">Barometer</string>
     <string name="screen.satellite.barometer.pressure">Pressure:</string>

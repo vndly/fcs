@@ -15,13 +15,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.satellite.location.latitude"/>
+            android:text="@string/screen.satellite.location.longitude"/>
 
         <TextView
-            android:id="@+id/last.location.latitude"
+            android:id="@+id/last.location.longitude"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 
@@ -34,13 +35,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="@string/screen.satellite.location.longitude"/>
+            android:text="@string/screen.satellite.location.latitude"/>
 
         <TextView
-            android:id="@+id/last.location.longitude"
+            android:id="@+id/last.location.latitude"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 
@@ -59,7 +61,8 @@
             android:id="@+id/last.location.altitude"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 
@@ -78,7 +81,8 @@
             android:id="@+id/last.location.accuracy"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 
@@ -97,7 +101,8 @@
             android:id="@+id/last.location.speed"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 
@@ -116,7 +121,8 @@
             android:id="@+id/last.location.bearing"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 

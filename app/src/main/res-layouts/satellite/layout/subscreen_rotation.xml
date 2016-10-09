@@ -21,7 +21,8 @@
             android:id="@+id/last.rotation.x"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 
@@ -40,7 +41,8 @@
             android:id="@+id/last.rotation.y"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 
@@ -59,7 +61,8 @@
             android:id="@+id/last.rotation.z"
             style="@style/textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/unknown"/>
 
     </TableRow>
 
