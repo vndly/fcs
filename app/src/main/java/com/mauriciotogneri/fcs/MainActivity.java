@@ -1,8 +1,8 @@
 package com.mauriciotogneri.fcs;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.mauriciotogneri.fcs.ground.GroundActivity;
@@ -10,7 +10,7 @@ import com.mauriciotogneri.fcs.satellite.SatelliteActivity;
 import com.mauriciotogneri.uibinder.UiBinder;
 import com.mauriciotogneri.uibinder.annotations.OnClick;
 
-public class MainActivity extends Activity
+public class MainActivity extends AppCompatActivity
 {
     private final UiBinder uiBinder = new UiBinder();
 

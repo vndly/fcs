@@ -1,4 +1,4 @@
-package com.mauriciotogneri.fcs.satellite.database;
+package com.mauriciotogneri.fcs.network;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -11,13 +11,13 @@ import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener
 import com.mauriciotogneri.fcs.util.DateUtil;
 import com.mauriciotogneri.fcs.util.NumberUtil;
 
-public class Database implements AccelerometerListener, RotationListener, LocationListener
+public class FirebaseNetwork implements AccelerometerListener, RotationListener, LocationListener
 {
     private DatabaseReference accelerometer;
     private DatabaseReference rotation;
     private DatabaseReference location;
 
-    public Database()
+    public FirebaseNetwork()
     {
         long timestamp = System.currentTimeMillis();
         String sessionId = DateUtil.format(timestamp);

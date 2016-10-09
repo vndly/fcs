@@ -8,17 +8,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.mauriciotogneri.fcs.R;
 import com.mauriciotogneri.fcs.adapters.ViewPagerAdapter;
-import com.mauriciotogneri.fcs.satellite.DataService.ServiceBinder;
 import com.mauriciotogneri.fcs.model.AccelerometerData;
-import com.mauriciotogneri.fcs.satellite.database.Database;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
+import com.mauriciotogneri.fcs.network.FirebaseNetwork;
+import com.mauriciotogneri.fcs.satellite.DataService.ServiceBinder;
 import com.mauriciotogneri.fcs.satellite.fragments.AccelerometerFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.LocationFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.RotationFragment;
@@ -32,7 +32,7 @@ import com.mauriciotogneri.fcs.util.DateUtil;
 import java.io.File;
 import java.io.IOException;
 
-public class SatelliteActivity extends FragmentActivity implements AccelerometerListener, RotationListener, LocationListener
+public class SatelliteActivity extends AppCompatActivity implements AccelerometerListener, RotationListener, LocationListener
 {
     private ServiceConnection serviceConnection;
     private FlightLog flightLog;
@@ -40,7 +40,7 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
     private AccelerometerFragment accelerometerFragment;
     private RotationFragment rotationFragment;
     private LocationFragment locationFragment;
-    private Database database;
+    private FirebaseNetwork firebaseNetwork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,7 +55,7 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
         setupFragments();
         setupService();
 
-        this.database = new Database();
+        this.firebaseNetwork = new FirebaseNetwork();
     }
 
     private void setupLog()
@@ -143,7 +143,7 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
     {
         accelerometerFragment.onAccelerometerData(data);
         flightLog.onAccelerometerData(data);
-        database.onAccelerometerData(data);
+        firebaseNetwork.onAccelerometerData(data);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
     {
         rotationFragment.onRotationData(data);
         flightLog.onRotationData(data);
-        database.onRotationData(data);
+        firebaseNetwork.onRotationData(data);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class SatelliteActivity extends FragmentActivity implements Accelerometer
     {
         locationFragment.onLocationData(data);
         flightLog.onLocationData(data);
-        database.onLocationData(data);
+        firebaseNetwork.onLocationData(data);
     }
 
     @Override

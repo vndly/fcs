@@ -15,6 +15,7 @@ public class FlightLog implements AccelerometerListener, RotationListener, Locat
     private final SensorLog accelerometerLog;
     private final SensorLog rotationLog;
     private final SensorLog locationLog;
+    private boolean closed = false;
 
     public FlightLog(File parent) throws IOException
     {
@@ -26,32 +27,51 @@ public class FlightLog implements AccelerometerListener, RotationListener, Locat
     @Override
     public void onAccelerometerData(AccelerometerData data)
     {
-        accelerometerLog.log(data.timestamp(), data.x(), data.y(), data.z());
+        if (!closed)
+        {
+            accelerometerLog.log(
+                    data.timestamp(),
+                    data.x(),
+                    data.y(),
+                    data.z());
+        }
     }
 
     @Override
     public void onRotationData(RotationData data)
     {
-        rotationLog.log(data.timestamp(), data.x(), data.y(), data.z());
+        if (!closed)
+        {
+            rotationLog.log(
+                    data.timestamp(),
+                    data.x(),
+                    data.y(),
+                    data.z());
+        }
     }
 
     @Override
     public void onLocationData(LocationData data)
     {
-        locationLog.log(
-                data.timestamp(),
-                data.latitude(),
-                data.longitude(),
-                data.altitude(),
-                data.accuracy(),
-                data.speed(),
-                data.bearing()
-        );
+        if (!closed)
+        {
+            locationLog.log(
+                    data.timestamp(),
+                    data.latitude(),
+                    data.longitude(),
+                    data.altitude(),
+                    data.accuracy(),
+                    data.speed(),
+                    data.bearing()
+            );
+        }
     }
 
     public void close()
     {
+        closed = true;
         accelerometerLog.close();
         rotationLog.close();
+        locationLog.close();
     }
 }
