@@ -28,12 +28,14 @@ public class FirebaseNetworkGround
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference indexRef = database.getReference("index");
+        final DatabaseReference indexRef = database.getReference("index");
         indexRef.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
+                indexRef.removeEventListener(this);
+
                 String sessionId = lastSessionId(dataSnapshot);
 
                 DatabaseReference sessionsRef = database.getReference("sessions").child(sessionId);

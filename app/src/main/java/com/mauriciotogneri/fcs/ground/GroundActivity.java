@@ -78,6 +78,7 @@ public class GroundActivity extends AppCompatActivity implements SensorListener
     public void onRotationData(RotationData data)
     {
         rotationFragment.onRotationData(data);
+        locationFragment.onRotationData(data);
     }
 
     @Override

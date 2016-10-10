@@ -13,9 +13,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.mauriciotogneri.fcs.R;
 import com.mauriciotogneri.fcs.base.BaseFragment;
 import com.mauriciotogneri.fcs.model.LocationData;
+import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.satellite.sensors.LocationSensor.LocationListener;
+import com.mauriciotogneri.fcs.satellite.sensors.RotationSensor.RotationListener;
 
-public class LocationFragment extends BaseFragment implements OnMapReadyCallback,LocationListener
+public class LocationFragment extends BaseFragment implements OnMapReadyCallback, LocationListener, RotationListener
 {
     private GoogleMap map;
 
@@ -56,6 +58,7 @@ public class LocationFragment extends BaseFragment implements OnMapReadyCallback
 
                 marker = map.addMarker(new MarkerOptions()
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.airplane))
+                        .anchor(0.5f, 0.5f)
                         .position(position));
             }
         }
@@ -70,6 +73,15 @@ public class LocationFragment extends BaseFragment implements OnMapReadyCallback
         lastValueBearing.setText(String.format("%sº", data.bearing()));
 
         center(data.latitude(), data.longitude());
+    }
+
+    @Override
+    public void onRotationData(RotationData data)
+    {
+        if (marker != null)
+        {
+            marker.setRotation((data.z() * -180) - map.getCameraPosition().bearing);
+        }
     }
 
     @Override
