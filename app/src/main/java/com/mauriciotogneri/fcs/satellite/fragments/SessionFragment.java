@@ -1,12 +1,14 @@
 package com.mauriciotogneri.fcs.satellite.fragments;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.mauriciotogneri.fcs.R;
 import com.mauriciotogneri.fcs.base.BaseFragment;
+import com.mauriciotogneri.fcs.util.DateUtil;
 
 public class SessionFragment extends BaseFragment
 {
@@ -40,7 +42,10 @@ public class SessionFragment extends BaseFragment
         TextView session = (TextView) findViewById(R.id.session_id);
         session.setText(sessionId);
 
+        long base = System.currentTimeMillis() - DateUtil.parse(sessionId);
+
         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+        chronometer.setBase(SystemClock.elapsedRealtime() - base);
         chronometer.start();
     }
 
