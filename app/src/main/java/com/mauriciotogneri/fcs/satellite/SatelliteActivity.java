@@ -104,6 +104,7 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
         rotationFragment.onRotationData(data);
         flightLog.onRotationData(data);
         firebaseNetwork.onRotationData(data);
+        locationFragment.onRotationData(data);
     }
 
     @Override
