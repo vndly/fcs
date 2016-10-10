@@ -33,9 +33,9 @@ public class RotationFragment extends BaseFragment implements RotationListener
     @Override
     public void onRotationData(RotationData data)
     {
-        lastValueX.setText(String.valueOf(data.x()));
-        lastValueY.setText(String.valueOf(data.y()));
-        lastValueZ.setText(String.valueOf(data.z()));
+        lastValueX.setText(String.format("%sº", (int)(data.x() * 180)));
+        lastValueY.setText(String.format("%sº", (int)(data.y() * 180)));
+        lastValueZ.setText(String.format("%sº", (int)(data.z() * 180)));
 
         compassView.setPitch(data.x() * -180);
         compassView.setRoll(data.y() * 180);

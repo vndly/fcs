@@ -1,5 +1,6 @@
 package com.mauriciotogneri.fcs.satellite.fragments;
 
+import android.graphics.Color;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -7,6 +8,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -22,6 +25,7 @@ public class LocationFragment extends BaseFragment implements OnMapReadyCallback
     private GoogleMap map;
 
     private Marker marker;
+    private Circle circle;
 
     private TextView lastValueAltitude;
     private TextView lastValueAccuracy;
@@ -40,7 +44,7 @@ public class LocationFragment extends BaseFragment implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-    private void center(float longitude, float latitude)
+    private void center(float longitude, float latitude, float accuracy)
     {
         if (map != null)
         {
@@ -51,6 +55,9 @@ public class LocationFragment extends BaseFragment implements OnMapReadyCallback
                 map.animateCamera(CameraUpdateFactory.newLatLng(position));
 
                 marker.setPosition(position);
+
+                circle.setCenter(position);
+                circle.setRadius(accuracy);
             }
             else
             {
@@ -60,6 +67,14 @@ public class LocationFragment extends BaseFragment implements OnMapReadyCallback
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.airplane))
                         .anchor(0.5f, 0.5f)
                         .position(position));
+
+                CircleOptions circleOptions = new CircleOptions()
+                        .center(position)
+                        .fillColor(Color.argb(50, 0, 0, 255))
+                        .strokeWidth(0)
+                        .radius(accuracy);
+
+                circle = map.addCircle(circleOptions);
             }
         }
     }
@@ -72,7 +87,7 @@ public class LocationFragment extends BaseFragment implements OnMapReadyCallback
         lastValueSpeed.setText(String.format("%s m/s", data.speed()));
         lastValueBearing.setText(String.format("%sº", data.bearing()));
 
-        center(data.latitude(), data.longitude());
+        center(data.latitude(), data.longitude(), data.accuracy());
     }
 
     @Override
