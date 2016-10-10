@@ -19,10 +19,12 @@ import com.mauriciotogneri.fcs.satellite.fragments.AccelerometerFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.BarometerFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.LocationFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.RotationFragment;
+import com.mauriciotogneri.fcs.satellite.fragments.SessionFragment;
 import com.mauriciotogneri.fcs.satellite.sensors.SensorListener;
 
 public class GroundActivity extends AppCompatActivity implements SensorListener, SessionListener
 {
+    private SessionFragment sessionFragment;
     private AccelerometerFragment accelerometerFragment;
     private RotationFragment rotationFragment;
     private BarometerFragment barometerFragment;
@@ -63,6 +65,7 @@ public class GroundActivity extends AppCompatActivity implements SensorListener,
 
     private void setupFragments()
     {
+        this.sessionFragment = SessionFragment.newInstance("");
         this.accelerometerFragment = new AccelerometerFragment();
         this.rotationFragment = new RotationFragment();
         this.barometerFragment = new BarometerFragment();
@@ -71,12 +74,13 @@ public class GroundActivity extends AppCompatActivity implements SensorListener,
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(sessionFragment, getString(R.string.screen_satellite_session));
         adapter.addFragment(accelerometerFragment, getString(R.string.screen_satellite_accelerometer));
         adapter.addFragment(rotationFragment, getString(R.string.screen_satellite_rotation));
         adapter.addFragment(barometerFragment, getString(R.string.screen_satellite_barometer));
         adapter.addFragment(locationFragment, getString(R.string.screen_satellite_location));
 
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(5);
         viewPager.setCurrentItem(0);
         viewPager.setAdapter(adapter);
 
@@ -113,6 +117,7 @@ public class GroundActivity extends AppCompatActivity implements SensorListener,
     public void onSessionStarted(String id)
     {
         progressDialog.dismiss();
+        sessionFragment.start(id);
     }
 
     @Override

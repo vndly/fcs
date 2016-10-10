@@ -61,7 +61,7 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
 
     private void setupFragments(Session session)
     {
-        SessionFragment sessionFragment = SessionFragment.newInstance(session);
+        SessionFragment sessionFragment = SessionFragment.newInstance(session.id());
         this.accelerometerFragment = new AccelerometerFragment();
         this.rotationFragment = new RotationFragment();
         this.barometerFragment = new BarometerFragment();
