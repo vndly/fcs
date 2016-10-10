@@ -2,6 +2,7 @@ package com.mauriciotogneri.fcs.satellite.fragments;
 
 import android.widget.TextView;
 
+import com.mauriciotogneri.fcs.widgets.CompassView;
 import com.mauriciotogneri.fcs.R;
 import com.mauriciotogneri.fcs.base.BaseFragment;
 import com.mauriciotogneri.fcs.model.RotationData;
@@ -12,6 +13,7 @@ public class RotationFragment extends BaseFragment implements RotationListener
     private TextView lastValueX;
     private TextView lastValueY;
     private TextView lastValueZ;
+    private CompassView compassView;
 
     @Override
     public void initialize()
@@ -19,6 +21,7 @@ public class RotationFragment extends BaseFragment implements RotationListener
         lastValueX = (TextView) findViewById(R.id.last_rotation_x);
         lastValueY = (TextView) findViewById(R.id.last_rotation_y);
         lastValueZ = (TextView) findViewById(R.id.last_rotation_z);
+        compassView = (CompassView) findViewById(R.id.compassView);
     }
 
     @Override
@@ -33,5 +36,10 @@ public class RotationFragment extends BaseFragment implements RotationListener
         lastValueX.setText(String.valueOf(data.x()));
         lastValueY.setText(String.valueOf(data.y()));
         lastValueZ.setText(String.valueOf(data.z()));
+
+        compassView.setPitch(data.x() * -180);
+        compassView.setRoll(data.y() * 180);
+        compassView.setBearing((data.z() * -180) - 180);
+        compassView.invalidate();
     }
 }
