@@ -8,6 +8,8 @@
     <string name="screen.main.type.satellite">Satellite</string>
     <string name="screen.main.type.ground">Ground</string>
 
+    <string name="screen.main.session.loading">Loading session…</string>
+
     <string name="screen.satellite.session.id">ID:</string>
     <string name="screen.satellite.time">Time:</string>
 

@@ -1,5 +1,6 @@
 package com.mauriciotogneri.fcs.ground;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -13,19 +14,22 @@ import com.mauriciotogneri.fcs.model.BarometerData;
 import com.mauriciotogneri.fcs.model.LocationData;
 import com.mauriciotogneri.fcs.model.RotationData;
 import com.mauriciotogneri.fcs.network.FirebaseNetworkGround;
+import com.mauriciotogneri.fcs.network.FirebaseNetworkGround.SessionListener;
 import com.mauriciotogneri.fcs.satellite.fragments.AccelerometerFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.BarometerFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.LocationFragment;
 import com.mauriciotogneri.fcs.satellite.fragments.RotationFragment;
 import com.mauriciotogneri.fcs.satellite.sensors.SensorListener;
 
-public class GroundActivity extends AppCompatActivity implements SensorListener
+public class GroundActivity extends AppCompatActivity implements SensorListener, SessionListener
 {
     private AccelerometerFragment accelerometerFragment;
     private RotationFragment rotationFragment;
     private BarometerFragment barometerFragment;
     private LocationFragment locationFragment;
     private FirebaseNetworkGround firebaseNetwork;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,13 +40,25 @@ public class GroundActivity extends AppCompatActivity implements SensorListener
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        progressDialog = progressDialog();
+
         setupNetwork();
         setupFragments();
     }
 
+    private ProgressDialog progressDialog()
+    {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.screen_main_session_loading));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        return progressDialog;
+    }
+
     private void setupNetwork()
     {
-        this.firebaseNetwork = new FirebaseNetworkGround(this);
+        this.firebaseNetwork = new FirebaseNetworkGround(this, this);
     }
 
     private void setupFragments()
@@ -91,5 +107,19 @@ public class GroundActivity extends AppCompatActivity implements SensorListener
     public void onLocationData(LocationData data)
     {
         locationFragment.onLocationData(data);
+    }
+
+    @Override
+    public void onSessionStarted(String id)
+    {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        firebaseNetwork.stop();
+
+        super.onDestroy();
     }
 }

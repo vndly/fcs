@@ -14,10 +14,10 @@ import com.mauriciotogneri.fcs.network.data.RotationDataEntry;
 
 public class FirebaseNetworkSatellite implements NetworkSatellite
 {
-    private DatabaseReference accelerometerRef;
-    private DatabaseReference rotationRef;
-    private DatabaseReference barometerRef;
-    private DatabaseReference locationRef;
+    private NodeWriter accelerometerNode;
+    private NodeWriter rotationNode;
+    private NodeWriter barometerNode;
+    private NodeWriter locationNode;
 
     public FirebaseNetworkSatellite(Session session)
     {
@@ -28,37 +28,41 @@ public class FirebaseNetworkSatellite implements NetworkSatellite
 
         DatabaseReference sessionRef = database.getReference("sessions").child(session.id());
 
-        this.accelerometerRef = sessionRef.child("accelerometer");
-        this.rotationRef = sessionRef.child("rotation");
-        this.barometerRef = sessionRef.child("barometer");
-        this.locationRef = sessionRef.child("location");
+        this.accelerometerNode = new NodeWriter(sessionRef.child("accelerometer"));
+        this.rotationNode = new NodeWriter(sessionRef.child("rotation"));
+        this.barometerNode = new NodeWriter(sessionRef.child("barometer"));
+        this.locationNode = new NodeWriter(sessionRef.child("location"));
     }
 
     @Override
     public void onAccelerometerData(AccelerometerData data)
     {
-        DatabaseReference ref = accelerometerRef.child(String.valueOf(data.timestamp()));
-        ref.setValue(new AccelerometerDataEntry(data));
+        accelerometerNode.write(data.timestamp(), new AccelerometerDataEntry(data));
     }
 
     @Override
     public void onRotationData(RotationData data)
     {
-        DatabaseReference ref = rotationRef.child(String.valueOf(data.timestamp()));
-        ref.setValue(new RotationDataEntry(data));
+        rotationNode.write(data.timestamp(), new RotationDataEntry(data));
     }
 
     @Override
     public void onBarometerData(BarometerData data)
     {
-        DatabaseReference ref = barometerRef.child(String.valueOf(data.timestamp()));
-        ref.setValue(new BarometerDataEntry(data));
+        barometerNode.write(data.timestamp(), new BarometerDataEntry(data));
     }
 
     @Override
     public void onLocationData(LocationData data)
     {
-        DatabaseReference ref = locationRef.child(String.valueOf(data.timestamp()));
-        ref.setValue(new LocationDataEntry(data));
+        locationNode.write(data.timestamp(), new LocationDataEntry(data));
+    }
+
+    public void stop()
+    {
+        accelerometerNode.stop();
+        rotationNode.stop();
+        barometerNode.stop();
+        locationNode.stop();
     }
 }

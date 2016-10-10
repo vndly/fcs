@@ -127,6 +127,7 @@ public class SatelliteActivity extends AppCompatActivity implements SensorListen
     {
         flightLog.close();
         flightRecorder.stop();
+        firebaseNetwork.stop();
 
         super.onDestroy();
     }

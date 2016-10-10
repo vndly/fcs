@@ -1,11 +1,11 @@
 package com.mauriciotogneri.fcs.network;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mauriciotogneri.fcs.network.NodeReader.OnNewData;
 import com.mauriciotogneri.fcs.network.data.AccelerometerDataEntry;
 import com.mauriciotogneri.fcs.network.data.BarometerDataEntry;
 import com.mauriciotogneri.fcs.network.data.LocationDataEntry;
@@ -21,8 +21,12 @@ import java.util.Map;
 public class FirebaseNetworkGround
 {
     private SensorListener sensorListener;
+    private NodeReader<AccelerometerDataEntry> accelerometerNode;
+    private NodeReader<RotationDataEntry> rotationNode;
+    private NodeReader<BarometerDataEntry> barometerNode;
+    private NodeReader<LocationDataEntry> locationNode;
 
-    public FirebaseNetworkGround(final SensorListener sensorListener)
+    public FirebaseNetworkGround(final SensorListener sensorListener, final SessionListener sessionListener)
     {
         this.sensorListener = sensorListener;
 
@@ -37,6 +41,8 @@ public class FirebaseNetworkGround
                 indexRef.removeEventListener(this);
 
                 String sessionId = lastSessionId(dataSnapshot);
+
+                sessionListener.onSessionStarted(sessionId);
 
                 DatabaseReference sessionsRef = database.getReference("sessions").child(sessionId);
 
@@ -55,164 +61,52 @@ public class FirebaseNetworkGround
 
     private void listenAccelerometerData(DatabaseReference sessionsRef)
     {
-        DatabaseReference accelerometerRef = sessionsRef.child("accelerometer");
-
-        accelerometerRef.addChildEventListener(new ChildEventListener()
+        accelerometerNode = new NodeReader<>(sessionsRef.child("accelerometer"));
+        accelerometerNode.read(AccelerometerDataEntry.class, new OnNewData<AccelerometerDataEntry>()
         {
             @Override
-            @SuppressWarnings("unchecked")
-            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            public void onNewData(long timestamp, AccelerometerDataEntry entry)
             {
-                if (s != null)
-                {
-                    long timestamp = Long.parseLong(dataSnapshot.getKey());
-                    AccelerometerDataEntry entry = dataSnapshot.getValue(AccelerometerDataEntry.class);
-
-                    sensorListener.onAccelerometerData(entry.data(timestamp));
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s)
-            {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot)
-            {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s)
-            {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
+                sensorListener.onAccelerometerData(entry.data(timestamp));
             }
         });
     }
 
     private void listenRotationData(DatabaseReference sessionsRef)
     {
-        DatabaseReference accelerometerRef = sessionsRef.child("rotation");
-
-        accelerometerRef.addChildEventListener(new ChildEventListener()
+        rotationNode = new NodeReader<>(sessionsRef.child("rotation"));
+        rotationNode.read(RotationDataEntry.class, new OnNewData<RotationDataEntry>()
         {
             @Override
-            @SuppressWarnings("unchecked")
-            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            public void onNewData(long timestamp, RotationDataEntry entry)
             {
-                if (s != null)
-                {
-                    long timestamp = Long.parseLong(dataSnapshot.getKey());
-                    RotationDataEntry entry = dataSnapshot.getValue(RotationDataEntry.class);
-
-                    sensorListener.onRotationData(entry.data(timestamp));
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s)
-            {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot)
-            {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s)
-            {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
+                sensorListener.onRotationData(entry.data(timestamp));
             }
         });
     }
 
     private void listenBarometerData(DatabaseReference sessionsRef)
     {
-        DatabaseReference accelerometerRef = sessionsRef.child("barometer");
-
-        accelerometerRef.addChildEventListener(new ChildEventListener()
+        barometerNode = new NodeReader<>(sessionsRef.child("barometer"));
+        barometerNode.read(BarometerDataEntry.class, new OnNewData<BarometerDataEntry>()
         {
             @Override
-            @SuppressWarnings("unchecked")
-            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            public void onNewData(long timestamp, BarometerDataEntry entry)
             {
-                if (s != null)
-                {
-                    long timestamp = Long.parseLong(dataSnapshot.getKey());
-                    BarometerDataEntry entry = dataSnapshot.getValue(BarometerDataEntry.class);
-
-                    sensorListener.onBarometerData(entry.data(timestamp));
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s)
-            {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot)
-            {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s)
-            {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
+                sensorListener.onBarometerData(entry.data(timestamp));
             }
         });
     }
 
     private void listenLocationData(DatabaseReference sessionsRef)
     {
-        DatabaseReference accelerometerRef = sessionsRef.child("location");
-
-        accelerometerRef.addChildEventListener(new ChildEventListener()
+        locationNode = new NodeReader<>(sessionsRef.child("location"));
+        locationNode.read(LocationDataEntry.class, new OnNewData<LocationDataEntry>()
         {
             @Override
-            @SuppressWarnings("unchecked")
-            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            public void onNewData(long timestamp, LocationDataEntry entry)
             {
-                if (s != null)
-                {
-                    long timestamp = Long.parseLong(dataSnapshot.getKey());
-                    LocationDataEntry entry = dataSnapshot.getValue(LocationDataEntry.class);
-
-                    sensorListener.onLocationData(entry.data(timestamp));
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s)
-            {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot)
-            {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s)
-            {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
+                sensorListener.onLocationData(entry.data(timestamp));
             }
         });
     }
@@ -234,5 +128,18 @@ public class FirebaseNetworkGround
         });
 
         return sessions.get(keys.get(keys.size() - 1));
+    }
+
+    public void stop()
+    {
+        accelerometerNode.close();
+        rotationNode.close();
+        barometerNode.close();
+        locationNode.close();
+    }
+
+    public interface SessionListener
+    {
+        void onSessionStarted(String id);
     }
 }
