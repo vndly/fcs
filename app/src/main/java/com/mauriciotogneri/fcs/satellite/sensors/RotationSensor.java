@@ -69,6 +69,9 @@ public class RotationSensor implements SensorEventListener
 
         //listener.onRotationData(System.currentTimeMillis(), orientation[0], orientation[1], orientation[2]);*/
 
+        // TODO
+        // https://github.com/kibotu/KalmanRx
+
         long now = System.currentTimeMillis();
 
         if (now - lastTimestamp > rate)
